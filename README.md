@@ -1,5 +1,5 @@
 # Description
-Roundup is a IMAP Background filter and Washer.  
+Roundup is a background IMAP filter and washer.  
 This tool uses IMAP to move in a mailbox mails that correspond to specific
 regular and logical expressions.  
 The script is intended for background activities, e.g. as a cron job.
