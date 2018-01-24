@@ -1,0 +1,25 @@
+EX-A /INBOX > /Newsletter
+  PAT: A0 /^From:.*news(letter)*.*@.*/im
+  PAT: AB /^From:.*@.*(\.bahn||\.brax|\.buecher)\.(de|com)/im
+  PAT: AC /^From:.*@.*(\.conrad)\.(de|com)/im
+  PAT: AD /^From:.*@.*(\.deerberg)\.(de|com)/im
+  PAT: AF /^From:.*@.*(\.fahrrad)\.(de|com)/im
+  PAT: AH /^From:.*@.*(\.hessnatur)\.(de|com)/im
+  PAT: AL /^From:.*@.*(\.landsend)\.(de|com)/im
+  PAT: B1 /^From:.*service@.*\.cyberport\.de/im
+  PAT: B2 /http(s)*:\/\/news\.cyberport\.de/
+  EXP: (A0 && (AB || AC || AD || AF || AH || AL)) || (B1 && B2)
+  
+EX-A /INBOX > /Spam
+  PAT: A /(view|broken|missed)\s+email/i
+  PAT: B /^(Reply-To|From|Sender):.+@.*(empfehlung|sparbon|news-abcletter)|((mobil|mobile|fashion)-(mail|new))/im
+  PAT: C /^(Reply-To|From|Sender):.+@.*\.(host|local|localhost)\b/im
+  PAT: D /^(Reply-To|From|Sender):.+@.*\bshopping.de/im
+  EXP: A || B || C || D
+
+EX-B /INBOX > /Newsletter
+  PAT: A0 /^From:.*news(letter)*.*@.*/im
+  PAT: AM /^From:.*@.*(\.mediamarkt)\.(de|com)/im
+  PAT: AS /^From:.*@.*(\.saturn)\.(de|com)/im
+  EXP: (A0 && (AM || AS))
+  
