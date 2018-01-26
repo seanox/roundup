@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<project name="roundup" default="usage" basedir="..">
+  <target name="usage">
+    <echo>                                                    </echo>
+    <echo> the following targets are available ...            </echo>
+    <echo>                                                    </echo>
+    <echo>   archive   build the application and make         </echo>
+    <echo>             archives for distribution and          </echo> 
+    <echo>             development                            </echo>
+  </target>
+
+  <!-- TODO --> 
+</project>
