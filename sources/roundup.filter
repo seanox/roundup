@@ -1,3 +1,4 @@
+# Find all desired newsletters and move them from inbox to newsletter.
 EX-A /INBOX > /Newsletter
   PAT: A0 /^From:.*news(letter)*.*@.*/im
   PAT: AB /^From:.*@.*(\.bahn||\.brax|\.buecher)\.(de|com)/im
@@ -9,17 +10,33 @@ EX-A /INBOX > /Newsletter
   PAT: B1 /^From:.*service@.*\.cyberport\.de/im
   PAT: B2 /http(s)*:\/\/news\.cyberport\.de/
   EXP: (A0 && (AB || AC || AD || AF || AH || AL)) || (B1 && B2)
-  
-EX-A /INBOX > /Spam
-  PAT: A /(view|broken|missed)\s+email/i
-  PAT: B /^(Reply-To|From|Sender):.+@.*(empfehlung|sparbon|news-abcletter)|((mobil|mobile|fashion)-(mail|new))/im
-  PAT: C /^(Reply-To|From|Sender):.+@.*\.(host|local|localhost)\b/im
-  PAT: D /^(Reply-To|From|Sender):.+@.*\bshopping.de/im
-  EXP: A || B || C || D
 
+# Find unwanted newsletters and move them to spam.  
+EX-A /INBOX > /Spam
+  PAT: A /^(From):.*((news(letter)*)|empfehlung|host|local|localhost|(deal(s)*\b)).*/im
+  PAT: B /^(Received):.*((news(letter)*)|empfehlung(deal(s)*\b)).*/im
+  PAT: C /(newsletter|jetzt) (abmelden)/i
+  PAT: D /<a\s[^>]+http(s)*:\/\/[^>]+\bunsubscribe\b/i
+  PAT: E /^List-Unsubscribe:/im
+  EXP: A || B || C || D || E
+ 
+# Find fake messages about undelivered mails and messages and move them to spam.
+# Find mail with very large numbers.  
+EX-A /INBOX > /Spam
+  PAT: A /(view|broken|missed)\s+(email|message|notification)/i
+  PAT: B /\d{3}\.\d{3}\.0{2}[^\d]/i
+  EXP: A || B
+
+# Find fake messages from google|ebay|facebook where the company name does not
+# appear in the e-mail address.
+EX-A /INBOX > /Spam
+  PAT: A /^From:.*(google|ebay|facebook)/im
+  PAT: B /^From:.*?(google|ebay|facebook).*<.*@[^>]*\1\.(com|de)>/im
+  EXP: A && !B  
+
+# Find all desired newsletters and move them from inbox to newsletter.
 EX-B /INBOX > /Newsletter
   PAT: A0 /^From:.*news(letter)*.*@.*/im
   PAT: AM /^From:.*@.*(\.mediamarkt)\.(de|com)/im
   PAT: AS /^From:.*@.*(\.saturn)\.(de|com)/im
   EXP: (A0 && (AM || AS))
-  
