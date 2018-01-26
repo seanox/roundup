@@ -53,7 +53,7 @@ coming soon
 # Installation
 The script must be stored on a server and is called by a cron job.  
 ```
-/bin/php -f roundup. php
+/bin/php -f roundup.php
 ```
 
 
