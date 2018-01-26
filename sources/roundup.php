@@ -1,4 +1,40 @@
-<?php 
+<?php
+/**
+ *  LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
+ *  im Folgenden Seanox Software Solutions oder kurz Seanox genannt. Diese
+ *  Software unterliegt der Version 2 der GNU General Public License.
+ *
+ *  Roundup, IMAP Background Filters and Washers
+ *  Copyright (C) 2018 Seanox Software Solutions
+ *
+ *  This program is free software; you can redistribute it and/or modify it
+ *  under the terms of version 2 of the GNU General Public License as published
+ *  by the Free Software Foundation.
+ *
+ *  This program is distributed in the hope that it will be useful, but WITHOUT
+ *  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ *  FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ *  more details.
+ *
+ *  You should have received a copy of the GNU General Public License along
+ *  with this program; if not, write to the Free Software Foundation, Inc.,
+ *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ *
+ *      DESCRIPTION
+ *
+ *  Roundup is a background IMAP filter and washer.
+ *  This tool uses IMAP to move in a mailbox mails that correspond to specific
+ *  regular and logical expressions. The script is intended for background
+ *  activities, e.g. as a cron job.
+ *
+ *  Roundup 1.0.0 20180126
+ *  Copyright (C) 2018 Seanox Software Solutions
+ *  All rights reserved.
+ *
+ *  @author  Seanox Software Solutions
+ *  @version 1.0.0 20180126
+ */
 
 define("SECTION_ACCOUNT", "ACCOUNT");
 define("SECTION_COMMON", "COMMON");
@@ -23,6 +59,11 @@ define("FILTER_EXPRESSION", "expression");
 define("PROTOCOL_IMAP", "imap");
 define("PROTOCOL_IMAP_SECURE", "imaps");
 
+/**
+ *  Returns the complete configuration or the given section.
+ *  @param  string $section secton
+ *  @return mixed  the found section as array, otherwise FALSE
+ */ 
 function configuration_get($section = FALSE) {
     
     $file = preg_replace("/(\.[^\.]*)$/", "", __FILE__) . ".ini";
@@ -45,6 +86,11 @@ function configuration_get($section = FALSE) {
     return $configuration;
 }
 
+/**
+ *  Writes a timestamped message to the standard I/O.
+ *  Multiple-line messages are indented during output.
+ *  @param string $message message
+ */
 function output_log($message) {
 
     if (!$message)
@@ -60,6 +106,10 @@ function output_log($message) {
     print(date("Y-m-d H:i:s") . " " . $message . "\r\n");    
 }
 
+/**
+ *  Returns a list of accounts from the configuration file.
+ *  @return array accounts as array
+ */
 function account_list() {
     
     $accounts = array();
@@ -83,6 +133,11 @@ function account_list() {
     return $accounts;
 }
 
+/**
+ *  Decode and simplify a message with possible multi-parts.
+ *  @param  string $message
+ *  @return the decoded and simplified message
+ */
 function message_decode_plain($message) {
     
     $head = "";
@@ -148,6 +203,12 @@ function message_decode_plain($message) {
     return trim("$head\r\n\r\n$body");
 }
 
+/**
+ *  Parses a filter section.
+ *  Any detected errors are written to the standard I/O.
+ *  @param  string $section section
+ *  @return mixed  filter as array, otherwise FALSE
+ */
 function message_filter_parse($section) {
     
     $section = trim($section);
@@ -237,6 +298,10 @@ function message_filter_parse($section) {
     return $filter;
 }
 
+/**
+ *  Returns a list of filters from the filter file.
+ *  @return array filters as array
+ */
 function message_filter_list() {
     
     $file = preg_replace("/(\.[^\.]*)$/", "", __FILE__) . ".filter";
@@ -258,6 +323,12 @@ function message_filter_list() {
     return $filter;
 }
 
+/**
+ *  Tests a filter for a message.
+ *  @param  array	$filter  filter
+ *  @param  string  $message message 
+ *  @return boolean TRUE or FALSE
+ */
 function message_filter_eval($filter, $message) {
 
     $pattern = @$filter[FILTER_PATTERN];
