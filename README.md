@@ -5,13 +5,29 @@ regular and logical expressions.
 The script is intended for background activities, e.g. as a cron job.
 
 
+# Features
+- Multi-user support
+- IMAP support (secure and not secure)
+- Internal dynamic whitelist  
+  Protects mails from following filters and rules.
+- Filter based on patterns with regular expression
+  The patterns can then be combined in logical expressions.  
+  Supported: AND, OR, NOT, round brackets
+- Processes the header and body of the messages  
+  Message content, including multi-part, is decoded and simplified for the
+  filters. The decoding only happens in memory.
+- Logging with detailed error messages
+- Physical separation of application, configuration (with accounts) and filter
+- Message attributes such as 'unseen' are retained
+
+
 # Licence Agreement
 Seanox Software Solutions ist ein Open-Source-Projekt, im Folgenden
 Seanox Software Solutions oder kurz Seanox genannt.
 
 Diese Software unterliegt der Version 2 der GNU General Public License.
 
-Copyright (C) 2017 Seanox Software Solutions
+Copyright (C) 2018 Seanox Software Solutions
 
 This program is free software; you can redistribute it and/or modify it under
 the terms of version 2 of the GNU General Public License as published by the
