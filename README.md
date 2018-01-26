@@ -27,7 +27,7 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 
 # System Requirement
-- PHP 7.x or higher
+- PHP 7.x or higher + imap extension
 
 
 # Downloads
@@ -35,7 +35,10 @@ coming soon
 
 
 # Installation
-TODO:
+The script must be stored on a server and is called by a cron job.  
+```
+/bin/php -f roundup. php
+```
 
 
 # Changes (Change Log)
