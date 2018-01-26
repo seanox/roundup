@@ -12,6 +12,9 @@
 # The section of a filter starts with a statement.
 # Syntax: <alias from an account in roundup.ini> <source> <target>
 # The alias is case-insensitive.
+#     IMPORTANT:
+# The application uses a different URL syntax for mailboxes.
+# Therefore not "." but "/" is used! 
 #
 # Patterns and expressions follow the statement.
 # Each line is a pattern or an expression.
