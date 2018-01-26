@@ -1,3 +1,38 @@
+# Description
+#
+# The filter file is a text file that is read line by line.
+# A hash at the beginning of a line (blank characters are allowed before) marks
+# the line as a comment. Comments are not read and skipped. Means they are
+# processed as if the line does not exist.
+#
+# The filters are divided into sections.
+# A section begins after a blank line or if the line does not begin with a blank
+# character. Therefore, the subsequent lines of a section are indented.
+# 
+# The section of a filter starts with a statement.
+# Syntax: <alias from an account in roundup.ini> <source> <target>
+# The alias is case-insensitive.
+#
+# Patterns and expressions follow the statement.
+# Each line is a pattern or an expression.
+# Filters support multiple patterns but only one expression.
+# You can define multiple patterns with the same alias. The last pattern to an
+# alias is always used. Expressions can also be defined multiple times, but only
+# the last expression is used.
+#
+# Syntax of a pattern:
+# PAT: <alias> <regular expression>
+# The alias is case-insensitive.
+#
+# Syntax of a expression:
+# EXP: <logical expression>
+# Supported: AND, OR, NOT, round brackets and the aliases of the patterns.
+# The alias is case-insensitive.
+# An alias returns TRUE or FALSE.
+# If the logical expression is TRUE, the statement is executed. 
+
+
+
 # Find all desired newsletters and move them from inbox to newsletter.
 EX-A /INBOX > /Newsletter
   PAT: A0 /^From:.*news(letter)*.*@.*/im
@@ -13,7 +48,7 @@ EX-A /INBOX > /Newsletter
 
 # Find unwanted newsletters and move them to spam.  
 EX-A /INBOX > /Spam
-  PAT: A /^(From):.*((news(letter)*)|empfehlung|host|local|localhost|(deal(s)*\b)).*/im
+  PAT: A /^(From):.*((news(letter)*)|local|localhost|(deal(s)*\b)).*/im
   PAT: B /^(Received):.*((news(letter)*)|empfehlung(deal(s)*\b)).*/im
   PAT: C /(newsletter|jetzt) (abmelden)/i
   PAT: D /<a\s[^>]+http(s)*:\/\/[^>]+\bunsubscribe\b/i
@@ -30,8 +65,8 @@ EX-A /INBOX > /Spam
 # Find fake messages from google|ebay|facebook where the company name does not
 # appear in the e-mail address.
 EX-A /INBOX > /Spam
-  PAT: A /^From:.*(google|ebay|facebook)/im
-  PAT: B /^From:.*?(google|ebay|facebook).*<.*@[^>]*\1\.(com|de)>/im
+  PAT: A /^From:.*(google|facebook|ebay)/im
+  PAT: B /^From:.*?(google|facebook|ebay).*<.*@[^>]*\1\.(com|de)>/im
   EXP: A && !B  
 
 # Find all desired newsletters and move them from inbox to newsletter.
