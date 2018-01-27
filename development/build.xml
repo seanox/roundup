@@ -117,7 +117,4 @@
       file="${workspace.releases}/seanox-${ant.project.name}-${release.version}-src.zip"/>
     <delete dir="${build}"/>
   </target>    
-  
-  
-
 </project>
