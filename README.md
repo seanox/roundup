@@ -19,7 +19,7 @@ The script is intended for background activities, e.g. as a cron job.
   Message content, including multi-part, is decoded and simplified for the
   filters. The decoding only happens in memory.
 - Message attributes such as 'unseen' are retained
-- Resumption from the last processed message (for each mailbox
+- Continuation of filtering from the last analyzed mail (for each mailbox
   separately); complete reanalysis when changing application, configuration or
   filter 
 - Logging with detailed error messages
