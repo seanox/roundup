@@ -6,8 +6,9 @@ The script is intended for background activities, e.g. as a cron job.
 
 
 # Features
-- Multi-user support
+- Multiple account support
 - IMAP support (secure and not secure)
+- simple URL based IMAP and mailbox definition
 - Internal dynamic whitelist  
   Protects mails from following filters and rules.
 - Filter based on patterns with regular expression
@@ -16,9 +17,12 @@ The script is intended for background activities, e.g. as a cron job.
 - Processes the header and body of the messages  
   Message content, including multi-part, is decoded and simplified for the
   filters. The decoding only happens in memory.
+- Message attributes such as 'unseen' are retained
+- Resumption from the last processed message (for each mailbox
+  separately); complete reanalysis when changing application, configuration or
+  filter 
 - Logging with detailed error messages
 - Physical separation of application, configuration (with accounts) and filter
-- Message attributes such as 'unseen' are retained
 
 
 # Licence Agreement
@@ -55,6 +59,33 @@ The script must be stored on a server and is called by a cron job.
 ```
 /bin/php -f roundup.php
 ```
+
+
+# Configuration
+The application consists of three files (`roundup.php`, `roundup.ini`,
+`roundup.filter`). At runtime, the session file `roundup.data` is created later.
+The files can be renamed. Basis is the file name of the application
+(`roundup.php`). All other file names must be based on it.  
+The program file`roundup.php` itself does not need to be configured.
+
+## Configuration file _(roundup.ini)_
+There are two sections: _COMMON_ and _ACCOUNT_.
+
+COMMON | 
+------------ | -------------
+Content from cell 1 | Content from cell 2
+
+ACCOUNT | 
+------------ | -------------
+Content from cell 1 | Content from cell 2
+
+__COMMON__
+
+__ACCOUNT__  
+  
+## Filter file _(roundup.filter)_
+The filters are defined here.  
+Please open `roundup. filter` and read the instructions and see the examples.
 
 
 # Changes (Change Log)
