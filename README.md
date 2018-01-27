@@ -8,17 +8,17 @@ The script is intended for background activities, e.g. as a cron job.
 
 # Features
 - Multiple account support
-- IMAP support (secure and not secure)
+- IMAP support (incl. SSL)
 - simple URL based IMAP and mailbox definition
 - Internal dynamic whitelist  
-  Protects mails from following filters and rules.
+  Exclusion of mails from subsequent filters and rules.
 - Filter based on patterns with regular expression  
   The patterns can then be combined in logical expressions.  
   Supported: AND, OR, NOT, round brackets
 - Processes the header and body of the messages  
   Message content, including multi-part, is decoded and simplified for the
   filters. The decoding only happens in memory.
-- Message attributes such as 'unseen' are retained
+- Message attributes such as 'seen / unseen' are retained
 - Continuation of filtering from the last analyzed mail (for each mailbox
   separately); complete reanalysis when changing application, configuration or
   filter 
