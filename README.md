@@ -68,11 +68,11 @@ The files can be renamed. Basis is the file name of the application
 (`roundup.php`). All other file names must be based on it.  
 The program file`roundup.php` itself does not need to be configured.
 
-## Configuration file _(roundup.ini)_
+## Configuration _(roundup.ini)_
 There are two sections: _COMMON_ and _ACCOUNT_.  
 Please open `roundup.ini` and read the notices and see the examples.
   
-## Filter file _(roundup.filter)_
+## Filter _(roundup.filter)_
 The filters are defined here.  
 Please open `roundup.filter` and read the instructions and see the examples.
 
