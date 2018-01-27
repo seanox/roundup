@@ -12,9 +12,12 @@
 # The section of a filter starts with a statement.
 # Syntax: <alias from an account in roundup.ini> <source> <target>
 # The alias is case-insensitive.
+# Target can be 'NOTHING'. The detected message is then entered in an internal
+# whitelist and protected from the following filters.
 #     IMPORTANT:
 # The application uses a different URL syntax for mailboxes.
-# Therefore not "." but "/" is used! 
+# Therefore not "." but "/" is used!
+# You can use the URL encoding (%## and +).
 #
 # Patterns and expressions follow the statement.
 # Each line is a pattern or an expression.
