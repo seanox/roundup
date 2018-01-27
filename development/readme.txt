@@ -1,10 +1,10 @@
     Description
     ----
 
-Roundup (alluding to a broadband herbicides) is a background IMAP filter, washer
-and reorganizer. This tool uses IMAP to move in a mailbox mails that correspond
-to specific regular and logical expressions.
-The script is intended for background activities, e.g. as a cron job.
+Roundup (in allusion to a broadband herbicide) is an IMAP-based mail filter,
+washer and (re)organizer that works in the background, e.g. as a cron job.
+This tool uses IMAP to move rule based mails in a mailbox. The rules for this
+are a combination of regular and logical expressions.
 
 
 

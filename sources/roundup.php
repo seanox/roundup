@@ -23,10 +23,10 @@
  *
  *      DESCRIPTION
  *
- *  Roundup is a background IMAP filter washer and reorganizer.
- *  This tool uses IMAP to move in a mailbox mails that correspond to specific
- *  regular and logical expressions. The script is intended for background
- *  activities, e.g. as a cron job.
+ *  Roundup is an IMAP-based mail filter, washer and (re)organizer that works in
+ *  the background, e.g. as a cron job. This tool uses IMAP to move rule based
+ *  mails in a mailbox. The rules for this are a combination of regular and
+ *  logical expressions.
  *
  *  Roundup 1.0.0 20180127
  *  Copyright (C) 2018 Seanox Software Solutions
