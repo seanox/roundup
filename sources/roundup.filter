@@ -37,7 +37,7 @@
 # An alias returns TRUE or FALSE.
 # If the logical expression is TRUE, the statement is executed.
 #
-# The e-mail is optimized for the filters (only in memory, nor in real).
+# The message is optimized for the filters (only in memory, nor in real).
 # Each header is summarized in one line.
 # If a header is an array, a header line is created for each array entry.
 # The values of the headers are decoded if appropriate.

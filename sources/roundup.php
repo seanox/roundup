@@ -1,8 +1,8 @@
 <?php
 /**
  *  LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
- *  im Folgenden Seanox Software Solutions oder kurz Seanox genannt. Diese
- *  Software unterliegt der Version 2 der GNU General Public License.
+ *  im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
+ *  Diese Software unterliegt der Version 2 der GNU General Public License.
  *
  *  Roundup, IMAP Background Filters and Washers
  *  Copyright (C) 2018 Seanox Software Solutions
@@ -28,18 +28,16 @@
  *  regular and logical expressions. The script is intended for background
  *  activities, e.g. as a cron job.
  *
- *  Roundup 1.0.0 20180126
+ *  Roundup 1.0.0 20180127
  *  Copyright (C) 2018 Seanox Software Solutions
  *  All rights reserved.
  *
  *  @author  Seanox Software Solutions
- *  @version 1.0.0 20180126
+ *  @version 1.0.0 20180127
  */
-
 define("SECTION_ACCOUNT", "ACCOUNT");
 define("SECTION_COMMON", "COMMON");
 
-define("SECTION_COMMON_BLOCK", "BLOCK");
 define("SECTION_COMMON_OVERSIZE", "OVERSIZE");
 
 define("URL_SCHEME", "scheme");
@@ -224,13 +222,21 @@ function message_filter_parse($section) {
     $filter = array(FILTER_ACCOUNT => FALSE, FILTER_SOURCE => FALSE, FILTER_TARGET => FALSE, FILTER_PATTERN => array(), FILTER_EXPRESSION => FALSE);
         
     $statement = array_shift($section);
-    if (!preg_match("/(\w+)\s+(\/[^\s\.]+)\s*>\s*((?:\/[^\s\.]+)|NOTHING)/i", $statement, $match)) {
+    if (!preg_match("/(\w+)\s+(\/[^\s]+)\s*>\s*((?:\/[^\s]+)|NOTHING)/i", $statement, $match)) {
         output_log("Invalid filter section (missing valid statement):\r\n$plain");
         return FALSE;
     }
-    $filter[FILTER_ACCOUNT] = $match[1]; 
-    $filter[FILTER_SOURCE]  = $match[2];
-    $filter[FILTER_TARGET]  = $match[3];
+    $filter[FILTER_ACCOUNT] = $match[1];
+    $filter[FILTER_SOURCE] = trim(urldecode($match[2]));
+    if (strpos($filter[FILTER_SOURCE], ".") !== FALSE) {
+        output_log("Invalid filter section (invalid source mailbox found):\r\n$plain");
+        return FALSE;
+    }
+    $filter[FILTER_TARGET] = trim(urldecode($match[3]));
+    if (strpos($filter[FILTER_SOURCE], ".") !== FALSE) {
+        output_log("Invalid filter section (invalid target mailbox found):\r\n$plain");
+        return FALSE;
+    }
     
     foreach ($section as $line) {
         if (preg_match("/^\s*pat\s*:.*$/i", $line)) {
@@ -325,7 +331,7 @@ function message_filter_list() {
 
 /**
  *  Tests a filter for a message.
- *  @param  array	$filter  filter
+ *  @param  array   $filter  filter
  *  @param  string  $message message 
  *  @return boolean TRUE or FALSE
  */
@@ -342,19 +348,26 @@ function message_filter_eval($filter, $message) {
     return eval("return $expression;");
 }
 
-function imap_open_url($account, $source) {
+/**
+ *  Opens the mailbox for an account.
+ *  @param  array  $account account	
+ *  @param  string $mailbox mailbox
+ *  @return mixed  IMAP resource stream, otherwise FALSE
+ */
+function imap_open_url($account, $mailbox) {
         
     $account = account_list()[$account];
     
     $scheme = @$account[URL_SCHEME];
     $host   = @$account[URL_HOST];
     $port   = @$account[URL_PORT];
-    $path   = @$account[URL_PATH] . "/" . $source;
+    $path   = @$account[URL_PATH] . "/" . $mailbox;
     
     $path = preg_replace("/^\/+/", "", $path);
     $path = preg_replace("/\/+$/", "", $path);
     $path = preg_replace("/\/+/", ".", $path);
 
+    $source = FALSE;
     if (strcasecmp(PROTOCOL_IMAP_SECURE, $scheme) == 0) {
         if (!$port) $port = "993";
         $source = "$host:$port/imap/ssl";
@@ -371,6 +384,22 @@ function imap_open_url($account, $source) {
     return imap_open($source, $user, $pass);
 }
 
+/**
+ *  Returns a message (incl. header and body).
+ *  The message is optimized for the filters (only in memory, nor in real).
+ *  Each header is summarized in one line. If a header is an array, a header
+ *  line is created for each array entry. The values of the headers are decoded
+ *  if appropriate.
+ *  Header and body are separated by a blank line [CRLF][CRLF].
+ *  Uses the body multi-parts with a boundary. The multi-parts remain intact.
+ *  The body/content of the multi-parts for the Content-Type: text/* are decoded
+ *  and combined in one line. For other data types, only the alias DATA <Content
+ *  Type> is used.
+ *  If the body does not use a multipart, the content is decoded in one line.
+ *  @param  resource $imap IMAP resource stream
+ *  @param  int      $uid  uid
+ *  @return mixed	 the optimized message as plain text, otherwise FALSE  
+ */
 function imap_fetch_message_plain($imap, $uid) {
     
     $number = imap_msgno($imap, $uid);
@@ -414,6 +443,11 @@ function imap_fetch_message_plain($imap, $uid) {
     return trim($message);
 }
 
+/**
+ *  Decodes text according to RFC 2047.
+ *  @param  string $text text
+ *  @return string the decoded text
+ */
 function imap_mime_decode($text) {
     
     $text = preg_replace("/=[\r\n]+/", "", $text);
@@ -426,6 +460,12 @@ function imap_mime_decode($text) {
     return preg_replace("/\s+/", " ", $result);
 }
 
+/**
+ *  Returns the real/full name/path of a mailbox.
+ *  @param  resource $imap    IMAP resource stream
+ *  @param  string   $mailbox mailbox
+ *  @return mixed    the real/full name/path of a mailbox, otherwise FALSE
+ */
 function imap_mailbox_real($imap, $mailbox) {
     
     $meta = imap_check($imap);
@@ -440,6 +480,11 @@ function imap_mailbox_real($imap, $mailbox) {
     return $real;
 }
 
+/**
+ *  Returns account of an IMAP resource stream.
+ *  @param  resource $imap    IMAP resource stream
+ *  @return mixed    account of an IMAP resource stream, otherwise FALSE
+ */
 function imap_mailbox_account($imap) {
     
     $meta = imap_check($imap);
@@ -451,6 +496,13 @@ function imap_mailbox_account($imap) {
     return trim("$host $user");
 }
 
+/**
+ *  Creates a hash value for a mailbox.
+ *  The hash is based on the connection and the mailbox.
+ *  @param  resource $imap    IMAP resource stream
+ *  @param  string   $mailbox mailbox
+ *  @return mixed    the created hash value
+ */
 function imap_hash_mailbox($imap, $mailbox) {
 
     $account = imap_mailbox_account($imap);
@@ -458,6 +510,11 @@ function imap_hash_mailbox($imap, $mailbox) {
     return strtoupper(bin2hex(trim("$account $real")));
 }
 
+/**
+ *  Opens a session if it exists, otherwise a new one will be created.
+ *  The session contains the last read UIDs of the individual mailboxes.
+ *  @return array the read or newly created session
+ */
 function session_open() {
     
     $time = filemtime(__FILE__);
@@ -476,6 +533,10 @@ function session_open() {
     return $session;
 }
 
+/**
+ *  Saves the passed session in the file system.
+ *  @param unknown $session session
+ */
 function session_save($session) {
     
     $data = serialize($session);
@@ -493,10 +554,6 @@ function main() {
     $sequences = array();
     $whitelist = array();
 
-    $block = configuration_get(SECTION_COMMON);
-    $block = @$block[SECTION_COMMON_BLOCK];
-    $block = $block && is_numeric($block) ? max(intval($block), 0) : FALSE;
-
     foreach ($filters as $filter) {
           
         $imap = imap_open_url($filter[FILTER_ACCOUNT], $filter[FILTER_SOURCE]);
@@ -507,15 +564,6 @@ function main() {
             $meta = imap_check($imap);
             if ($meta && imap_check($imap)->Nmsgs) {
                 $sequence = "$sequence:" . imap_uid($imap, imap_check($imap)->Nmsgs);
-                if ($block) {
-                    $count = 0;
-                    $overview = imap_fetch_overview($imap, sequence, FT_UID);
-                    foreach ($overview as $entry) {
-                        if ($count++ > $block)
-                            break;
-                        $sequence = preg_replace("/\d+$/", imap_uid($imap, $entry->msgno), $sequence);
-                    }
-                }
                 $numbers = preg_split("/:/", $sequence);
                 $numbers[0] = intval($numbers[0]);
                 $numbers[1] = intval($numbers[1]);
@@ -562,7 +610,7 @@ function main() {
             if (!$uid)
                 continue;
             $oid = "$hash:$uid";
-            if (array_key_exists($oid, $whitelist))
+            if (in_array($oid, $whitelist))
                 continue;
             $message = imap_fetch_message_plain($imap, $uid);
             if (!$entry->seen)
@@ -572,6 +620,9 @@ function main() {
             if (!message_filter_eval($filter, $message))
                 continue;
             if (preg_match("/NOTHING/i", $filter[FILTER_TARGET])) {
+                $from = imap_mime_decode($entry->from);
+                $subject = imap_mime_decode($entry->subject);
+                output_log("Keep: #{$entry->msgno} at {$entry->date} from $from - $subject");
                 $whitelist[] = $oid;
                 continue;
             }
