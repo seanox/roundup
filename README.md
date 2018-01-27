@@ -11,7 +11,7 @@ The script is intended for background activities, e.g. as a cron job.
 - simple URL based IMAP and mailbox definition
 - Internal dynamic whitelist  
   Protects mails from following filters and rules.
-- Filter based on patterns with regular expression
+- Filter based on patterns with regular expression  
   The patterns can then be combined in logical expressions.  
   Supported: AND, OR, NOT, round brackets
 - Processes the header and body of the messages  
