@@ -81,7 +81,7 @@ Please open `roundup.filter` and read the instructions and see the examples.
 
 # Changes (Change Log)
 ## 1.0.0 20180127 (summary of the current version)  
-NT: Roundup is available as a release  
+NT: Roundup is available as release  
 
 [Read more](https://raw.githubusercontent.com/seanox/roundup/master/CHANGES)
 
