@@ -69,23 +69,12 @@ The files can be renamed. Basis is the file name of the application
 The program file`roundup.php` itself does not need to be configured.
 
 ## Configuration file _(roundup.ini)_
-There are two sections: _COMMON_ and _ACCOUNT_.
-
-COMMON | 
------------- | -------------
-Content from cell 1 | Content from cell 2
-
-ACCOUNT | 
------------- | -------------
-Content from cell 1 | Content from cell 2
-
-__COMMON__
-
-__ACCOUNT__  
+There are two sections: _COMMON_ and _ACCOUNT_.  
+Please open `roundup.ini` and read the notices and see the examples.
   
 ## Filter file _(roundup.filter)_
 The filters are defined here.  
-Please open `roundup. filter` and read the instructions and see the examples.
+Please open `roundup.filter` and read the instructions and see the examples.
 
 
 # Changes (Change Log)
