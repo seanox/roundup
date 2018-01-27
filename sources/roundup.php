@@ -574,12 +574,13 @@ function main() {
         } else output_log("Invalid source mailbox found in: #{$filter[FILTER_NUMBER]} {$filter[FILTER_ACCOUNT]} {$filter[FILTER_SOURCE]} > {$filter[FILTER_TARGET]}");   
         imap_close($imap);
 
-        $imap = imap_open_url($filter[FILTER_ACCOUNT], $filter[FILTER_TARGET]);
-        $real = imap_mailbox_real($imap, $filter[FILTER_SOURCE]);
-        if (!$real)
-            output_log("Invalid traget mailbox found in: #{$filter[FILTER_NUMBER]} {$filter[FILTER_ACCOUNT]} {$filter[FILTER_SOURCE]} > {$filter[FILTER_TARGET]}");
-        
-        imap_close($imap);
+        if (!preg_match("/NOTHING/i", $filter[FILTER_TARGET])) {
+            $imap = imap_open_url($filter[FILTER_ACCOUNT], $filter[FILTER_TARGET]);
+            $real = imap_mailbox_real($imap, $filter[FILTER_SOURCE]);
+            if (!$real)
+                output_log("Invalid traget mailbox found in: #{$filter[FILTER_NUMBER]} {$filter[FILTER_ACCOUNT]} {$filter[FILTER_SOURCE]} > {$filter[FILTER_TARGET]}");
+            imap_close($imap);
+        }
     }
 
     output_log("Start analysis");
