@@ -59,7 +59,7 @@
 EX-A /INBOX > /Newsletter
   PAT: A0 /^From:.*news(letter)*.*@.*/im
   PAT: A1 /^From:.*@((news(letter))|nl)\..*/im
-  PAT: AB /^From:.*@.*(\.company-b1||\.company-b2|\.company-b2)\.(de|com)/im
+  PAT: AB /^From:.*@.*(\.company-b1|\.company-b2|\.company-b2)\.(de|com)/im
   PAT: AC /^From:.*@.*(\.company-c1)\.(de|com)/im
   PAT: AD /^From:.*@.*(\.company-d1)\.(de|com)/im
   PAT: AF /^From:.*@.*(\.company-f1)\.(de|com)/im
@@ -93,8 +93,16 @@ EX-A /INBOX > /Spam
 
 # Find all desired newsletters and move them from inbox to newsletter.
 EX-B /INBOX > /Newsletter
-  PAT: A0 /^From:.*news(letter)*.*@.*/im
-  PAT: A1 /^From:.*@((news(letter))|nl)\..*/im
-  PAT: AA /^From:.*@.*(\.company-a)\.(de|com)/im
-  PAT: AB /^From:.*@.*(\.company-b)\.(de|com)/im
-  EXP: ((A0 || A1) && (AM || AS))
+  PAT: A0 /^From:.*@((news(letter))|nl)\..*/im
+  PAT: A1 /^From:.*@.*(
+       ...\.company-b1
+       ...|\.company-b2
+       ...|\.company-b2
+       ...|\.company-c1
+       ...|\.company-d1
+       ...|\.company-f1
+       ...|\.company-h1
+       ...|\.company-l1)\.(de|com)/im
+  PAT: B1 /^From:.*service@.*\.company-x1\.de/im
+  PAT: B2 /http(s)*:\/\/news\.company-x1\.de/
+  EXP: (A0 && A1) || (B1 && B2)

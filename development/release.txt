@@ -1,6 +1,8 @@
 1.0.1 2018xxxx
   CR: Configuration
-      Update to use anonymous examples.
+      - Update to use anonymous examples
+  CR: Filter
+      - Enhancement of the syntax to continue lines with "..."        
   
 1.0.0 20180127
   NT: Roundup is available as release
