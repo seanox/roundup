@@ -1,6 +1,6 @@
 # Description
 Roundup (in allusion to a broadband herbicide) is an IMAP-based mail filter,
-washer and (re)organizer that works in the background, e.g. as a cron job.  
+washer and (re)organizer that works in the background, e.g. as a cron job.
 This tool uses IMAP to move rule based mails in a mailbox. The rules for this
 are a combination of regular and logical expressions.
 
