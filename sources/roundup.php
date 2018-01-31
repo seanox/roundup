@@ -28,12 +28,12 @@
  *  mails in a mailbox. The rules for this are a combination of regular and
  *  logical expressions.
  *
- *  Roundup 1.0.0 20180127
+ *  Roundup 1.0.0 20180131
  *  Copyright (C) 2018 Seanox Software Solutions
  *  All rights reserved.
  *
  *  @author  Seanox Software Solutions
- *  @version 1.0.0 20180127
+ *  @version 1.0.0 20180131
  */
 define("SECTION_ACCOUNT", "ACCOUNT");
 define("SECTION_COMMON", "COMMON");
@@ -320,6 +320,7 @@ function message_filter_list() {
     
     $filter = array();
     foreach (preg_split("/((\n\s*){2,})|(\n+(?!\s))/", $content) as $section) {
+        $section = preg_replace("/\s*\n+\s*\.{3}/" , "", $section);
         $section = message_filter_parse($section);
         if (!$section)
             continue;
