@@ -60,6 +60,7 @@ The script must be stored on a server and is called by a cron job.
 ```
 /bin/php -f roundup.php
 ```
+Alternatively, the script can also be used via CGI.
 
 
 # Configuration
