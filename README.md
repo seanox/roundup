@@ -61,7 +61,7 @@ The script must be stored on a server and is called by a cron job.
 /bin/php -f roundup.php
 ```
 Alternatively, the script can also be used via CGI.
-
+__In this case, please prohibit access to the configuration (ini) and filter file.__
 
 # Configuration
 The application consists of three files (`roundup.php`, `roundup.ini`,
