@@ -28,12 +28,12 @@
  *  mails in a mailbox. The rules for this are a combination of regular and
  *  logical expressions.
  *
- *  Roundup 1.0.1 20180201
+ *  Roundup 1.1.0 20180201
  *  Copyright (C) 2018 Seanox Software Solutions
  *  All rights reserved.
  *
  *  @author  Seanox Software Solutions
- *  @version 1.0.1 20180201
+ *  @version 1.1.0 20180201
  */
 define("SECTION_ACCOUNT", "ACCOUNT");
 define("SECTION_COMMON", "COMMON");
@@ -161,7 +161,7 @@ function message_decode_plain($message) {
     
     $boundary = preg_match("/^Content-Type:\s*multipart.*\bboundary\s*=\s*\"(.*?)\".*$/im", $head, $match) ? $match[1] : FALSE;
     if ($boundary) {
-        $parts = preg_split("/(^|\n)--" . preg_quote($boundary) . "\s*\n/", $body);
+        $parts = preg_split("/(^|\n)--" . preg_quote($boundary, "/") . "\s*\n/", $body);
         if ($parts && count($parts)) {
             $message = ""; 
             foreach ($parts as $part) {
@@ -269,7 +269,7 @@ function message_filter_parse($section) {
         $expression = $filter[FILTER_EXPRESSION];
         $expression = preg_replace("/[\(\)\|\&\!\s]+/", " ", $expression);
         foreach ($filter[FILTER_PATTERN] as $key => $value)
-            $expression = preg_replace("/\b" . preg_quote($key) . "\b/i", " ", $expression);
+            $expression = preg_replace("/\b" . preg_quote($key, "/") . "\b/i", " ", $expression);
         if (trim($expression)) {
             output_log("Invalid filter section (missing valid " . FILTER_PATTERN . " in " . FILTER_EXPRESSION . "):\r\n$plain");
             return FALSE;
@@ -345,7 +345,7 @@ function message_filter_eval($filter, $message) {
     if (!$expression)
         return FALSE;
     foreach ($pattern as $key => $value)  
-        $expression = preg_replace("/\b" . preg_quote($key) . "\b/i", preg_match($value, $message) ? "TRUE" : "FALSE", $expression);
+        $expression = preg_replace("/\b" . preg_quote($key, "/") . "\b/i", preg_match($value, $message) ? "TRUE" : "FALSE", $expression);
     return eval("return $expression;");
 }
 
