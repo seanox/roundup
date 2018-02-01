@@ -28,12 +28,12 @@
  *  mails in a mailbox. The rules for this are a combination of regular and
  *  logical expressions.
  *
- *  Roundup 1.0.0 20180131
+ *  Roundup 1.0.1 20180201
  *  Copyright (C) 2018 Seanox Software Solutions
  *  All rights reserved.
  *
  *  @author  Seanox Software Solutions
- *  @version 1.0.0 20180131
+ *  @version 1.0.1 20180201
  */
 define("SECTION_ACCOUNT", "ACCOUNT");
 define("SECTION_COMMON", "COMMON");
@@ -561,7 +561,7 @@ function main() {
         $real = imap_mailbox_real($imap, $filter[FILTER_SOURCE]);
         if ($real) {
             $hash = imap_hash_mailbox($imap, $filter[FILTER_SOURCE]);
-            $sequence = array_key_exists($hash, $session) ? max($session[$hash] +1, 1) : 1;
+            $sequence = array_key_exists($hash, $session) && $session[$hash] ? max($session[$hash] +1, 1) : 1;
             $meta = imap_check($imap);
             if ($meta && imap_check($imap)->Nmsgs) {
                 $sequence = "$sequence:" . imap_uid($imap, imap_check($imap)->Nmsgs);
@@ -624,13 +624,13 @@ function main() {
             if (preg_match("/NOTHING/i", $filter[FILTER_TARGET])) {
                 $from = imap_mime_decode($entry->from);
                 $subject = imap_mime_decode($entry->subject);
-                output_log("Keep: #{$entry->msgno} at {$entry->date} from $from - $subject");
+                output_log("Keep #{$entry->msgno} at {$entry->date} from $from - $subject");
                 $whitelist[] = $oid;
                 continue;
             }
             $from = imap_mime_decode($entry->from);
             $subject = imap_mime_decode($entry->subject);
-            output_log("Catch: #{$entry->msgno} at {$entry->date} from $from - $subject");
+            output_log("Catch #{$entry->msgno} at {$entry->date} from $from - $subject");
             $uids[] = $uid;    
         }
         
