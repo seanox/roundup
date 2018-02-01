@@ -48,8 +48,8 @@
 #
 # Uses the body multi-parts with a boundary. The multi-parts remain intact.
 # The body/content of the multi-parts for the Content-Type: text/* are decoded
-# and combined in one line. For other data types, only the alias DATA
-# <Content Type> is used.
+# and combined in one line. For other data types, the alias: DATA <Content-Type>
+# is used.
 #
 # If the body does not use a multipart, the content is decoded in one line.
 

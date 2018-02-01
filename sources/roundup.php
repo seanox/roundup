@@ -178,9 +178,9 @@ function message_decode_plain($message) {
     $encoding = preg_match("/^Content-Transfer-Encoding:\s*(.*)\s*$/im", $head, $match) ? trim($match[1]) : FALSE;
     if (preg_match("/BASE64/i", $encoding)) {
         if (!$type) {
-            $body = "DATA: UNKNOWN";
+            $body = "DATA UNKNOWN";
         } elseif (!preg_match("/^text\/.*$/i", $type)) {
-            $body = "DATA: " . strtoupper($type);
+            $body = "DATA " . strtoupper($type);
         } else {
             $decode = @base64_decode($body);
             if ($decode)
@@ -394,8 +394,8 @@ function imap_open_url($account, $mailbox) {
  *  Header and body are separated by a blank line [CRLF][CRLF].
  *  Uses the body multi-parts with a boundary. The multi-parts remain intact.
  *  The body/content of the multi-parts for the Content-Type: text/* are decoded
- *  and combined in one line. For other data types, only the alias DATA <Content
- *  Type> is used.
+ *  and combined in one line. For other data types, only the alias:
+ *    DATA <Content-Type> is used.
  *  If the body does not use a multipart, the content is decoded in one line.
  *  @param  resource $imap IMAP resource stream
  *  @param  int      $uid  uid
