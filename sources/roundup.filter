@@ -8,6 +8,8 @@
 # The filters are divided into sections.
 # A section begins after a blank line or if the line does not begin with a blank
 # character. Therefore, the subsequent lines of a section are indented.
+# If a line is to be continued exactly, the line must begin with blanks and
+# '...'. The line is then continued with the first character after '...'.
 # 
 # The section of a filter starts with a statement.
 # Syntax: <alias from an account in roundup.ini> <source> <target>
