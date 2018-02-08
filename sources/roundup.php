@@ -624,7 +624,6 @@ function main() {
             if (preg_match("/NOTHING/i", $filter[FILTER_TARGET])) {
                 $from = imap_mime_decode($entry->from);
                 $subject = imap_mime_decode($entry->subject);
-                output_log("Keep #{$entry->msgno} at {$entry->date} from $from - $subject");
                 $whitelist[] = $oid;
                 continue;
             }

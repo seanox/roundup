@@ -6,6 +6,7 @@
   CR: Filter - Enhancement of the syntax to continue lines with "..."
   CR: Decoder Multipart - For non-text content the alias DATA <Content-Type> is used
       previously DATA: <Content-Type>
+  CR: Output - KEEP for mail found by NOTHING has been removed
   
 1.0.0 20180127
   NT: Roundup is available as release
