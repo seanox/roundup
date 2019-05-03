@@ -1,12 +1,14 @@
-1.1.0 2018xxxx
-  BF: Correction in resuming a session 
+1.1.0 201907xx
+  BF: Session: Correction in resuming a  session
       If the session contains an empty entry for a mailbox.
   BF: Correction in the use of preg_quote
-  CR: Configuration - Update to use anonymous examples
-  CR: Filter - Enhancement of the syntax to continue lines with "..."
-  CR: Decoder Multipart - For non-text content the alias DATA <Content-Type> is used
-      previously DATA: <Content-Type>
-  CR: Output - KEEP for mails found by NOTHING has been removed
+  CR: Output: KEEP for mails found by NOTHING has been removed
+  CR: Filter: Enhancement of the syntax to continue lines with '...'
+  CR: Configuration: Update to use anonymous examples
+  CR: Decoder Multipart: Change alias for non-text content
+      from: DATA: <Content-Type> to: DATA <Content-Type>  
+  CR: Project: Uniform use of ./LICENSE and ./CHANGES  
+  CR: Project: Automatic update of the version in README.md
   
 1.0.0 20180127
   NT: Roundup is available as release

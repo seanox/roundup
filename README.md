@@ -31,7 +31,7 @@ Seanox Software Solutions oder kurz Seanox genannt.
 
 Diese Software unterliegt der Version 2 der GNU General Public License.
 
-Copyright (C) 2018 Seanox Software Solutions
+Copyright (C) 2019 Seanox Software Solutions
 
 This program is free software; you can redistribute it and/or modify it under
 the terms of version 2 of the GNU General Public License as published by the
@@ -80,8 +80,15 @@ Please open `roundup.filter` and read the instructions and see the examples.
 
 
 # Changes (Change Log)
-## 1.0.0 20180127 (summary of the current version)  
-NT: Roundup is available as release  
+## 1.1.0 201907xx (summary of the next version)  
+BF: Session: Correction in resuming a  session  
+BF: Correction in the use of preg_quote  
+CR: Output: KEEP for mails found by NOTHING has been removed  
+CR: Filter: Enhancement of the syntax to continue lines with '...'  
+CR: Configuration: Update to use anonymous examples  
+CR: Decoder Multipart: Change alias for non-text content  
+CR: Project: Uniform use of ./LICENSE and ./CHANGES  
+CR: Project: Automatic update of the version in README.md  
 
 [Read more](https://raw.githubusercontent.com/seanox/roundup/master/CHANGES)
 
@@ -91,3 +98,19 @@ NT: Roundup is available as release
 [Development](http://seanox.de/contact?development)  
 [Project](http://seanox.de/contact?service)  
 [Page](http://seanox.de/contact)  
+
+
+# Thanks!
+<img src="https://raw.githubusercontent.com/seanox/seanox/master/sources/resources/images/thanks.png">
+
+[JetBrains](https://www.jetbrains.com/?from=seanox)  
+Sven Lorenz  
+Andreas Mitterhofer  
+[novaObjects GmbH](https://www.novaobjects.de)  
+Leo Pelillo  
+Gunter Pfannm&uuml;ller  
+Annette und Steffen Pokel  
+Edgar R&ouml;stle  
+Michael S&auml;mann  
+Markus Schlosneck  
+[T-Systems International GmbH](https://www.t-systems.com)
