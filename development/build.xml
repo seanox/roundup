@@ -71,7 +71,7 @@
     </loadproperties>
     <delete file="${workspace}/CHANGES.tmp"/>
     <replaceregexp file="${workspace}/README.md"
-      match="(Seanox Roundup(?: (?:Sources|Test))* )\d+(\.\d+)*" flags="g" byline="false"
+      match="(Seanox Roundup )\d+(\.\d+)*" flags="g" byline="false"
       replace="\1${release.version.current}"/>
     <replaceregexp file="${workspace}/README.md"
       match="(seanox-roundup-(?:test-)*)\d+(?:\.\d+)*((?:-src)*\.zip)" flags="g" byline="false"
