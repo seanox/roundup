@@ -74,7 +74,7 @@
       match="(Seanox Roundup )\d+(\.\d+)*" flags="g" byline="false"
       replace="\1${release.version.current}"/>
     <replaceregexp file="${workspace}/README.md"
-      match="(seanox-roundup-(?:test-)*)\d+(?:\.\d+)*((?:-src)*\.zip)" flags="g" byline="false"
+      match="(seanox-${ant.project.name}-(?:test-)*)\d+(?:\.\d+)*((?:-src)*\.zip)" flags="g" byline="false"
       replace="\1${release.version.current}\2"/>    
   </target>
   
