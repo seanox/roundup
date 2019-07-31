@@ -1,4 +1,4 @@
-1.1.0 201907xx
+1.1.0 20190731
   BF: Session: Correction in resuming a  session
       If the session contains an empty entry for a mailbox.
   BF: Correction in the use of preg_quote
@@ -10,6 +10,9 @@
   CR: Project: Uniform use of ./LICENSE and ./CHANGES  
   CR: Project: Automatic update of the version in README.md
   CR: Build: Harmonization when updating the version
+  CR: Filter: Headers can now be filtered in raw format and decoded
+      The header for the analysis contains both variants.
+      First the header in raw format, then the decoded header.  
   
 1.0.0 20180127
   NT: Roundup is available as release

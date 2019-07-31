@@ -28,12 +28,12 @@
  *  mails in a mailbox. The rules for this are a combination of regular and
  *  logical expressions.
  *
- *  Roundup 1.1.0 20180201
+ *  Roundup 1.1.0 20190731
  *  Copyright (C) 2018 Seanox Software Solutions
  *  All rights reserved.
  *
  *  @author  Seanox Software Solutions
- *  @version 1.1.0 20180201
+ *  @version 1.1.0 20190731
  */
 define("SECTION_ACCOUNT", "ACCOUNT");
 define("SECTION_COMMON", "COMMON");
@@ -408,11 +408,15 @@ function imap_fetch_message_plain($imap, $uid) {
         return FALSE;
     
     $head = imap_fetchheader($imap, $number);
+    
+    $message = ""; 
+    foreach (preg_split("/[\r\n]+(?=\w)/", $head) as $entry)
+        $message = trim(trim($message) . "\r\n" . trim(preg_replace("/\s+/s", " ", $entry)));
+    
     $head = iconv_mime_decode_headers($head, ICONV_MIME_DECODE_CONTINUE_ON_ERROR);
     if (!$head)
         return FALSE;
-     
-    $message = ""; 
+
     foreach ($head as $key => $value) {
         if (is_array($value))
             foreach ($value as $entry)

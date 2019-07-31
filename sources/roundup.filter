@@ -81,17 +81,18 @@ EX-A /INBOX > /Spam
   EXP: A || B || C || D || E
  
 # Find fake messages about undelivered mails and messages and move them to spam.
-# Find jackpot mail with huge sums of money.  
 EX-A /INBOX > /Spam
   PAT: A /(view|broken|missed)\s+(email|message|notification)/i
   PAT: B /\d{3}\.\d{3}\.0{2}[^\d]/i
   EXP: A || B
 
 # Find fake messages where the company name does not appear in the e-mail address.
+# Find mails with dubious encoding (e.g. ?UTF-8?B?) in 'From' and if @ followed by numbers. 
 EX-A /INBOX > /Spam
-  PAT: A /^From:.*(xoogle|xacebook|xbay)/im
-  PAT: B /^From:.*?(xoogle|xacebook|xbay).*<.*@[^>]*\1\.(com|de)>/im
-  EXP: A && !B  
+  PAT: A /^From:.*(xoogle|xacebook|xbay|xmazon)/im
+  PAT: B /^From:.*?(xoogle|xacebook|xbay|xmazon).*<.*@[^>]*\1\.(com|de)>/im
+  PAT: C /^From:.*\?UTF\-\d+\?B\?.*@\d+.*$/im
+  EXP: (A && !B) || C
 
 # Find all desired newsletters and move them from inbox to newsletter.
 EX-B /INBOX > /Newsletter
