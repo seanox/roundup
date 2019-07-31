@@ -51,8 +51,8 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 
 # Downloads
-[Seanox Roundup 1.0.0](https://github.com/seanox/roundup/raw/master/releases/seanox-roundup-1.0.0.zip)  
-[Seanox Roundup 1.0.0 Sources](https://github.com/seanox/roundup/raw/master/releases/seanox-roundup-1.0.0-src.zip)  
+[Seanox Roundup 1.1.0](https://github.com/seanox/roundup/raw/master/releases/seanox-roundup-1.1.0.zip)  
+[Seanox Roundup 1.1.0 Sources](https://github.com/seanox/roundup/raw/master/releases/seanox-roundup-1.1.0-src.zip)  
 
 
 # Installation
@@ -80,7 +80,7 @@ Please open `roundup.filter` and read the instructions and see the examples.
 
 
 # Changes (Change Log)
-## 1.1.0 201907xx (summary of the next version)  
+## 1.1.0 20190731 (summary of the current version)  
 BF: Session: Correction in resuming a  session  
 BF: Correction in the use of preg_quote  
 CR: Output: KEEP for mails found by NOTHING has been removed  
@@ -89,6 +89,8 @@ CR: Configuration: Update to use anonymous examples
 CR: Decoder Multipart: Change alias for non-text content  
 CR: Project: Uniform use of ./LICENSE and ./CHANGES  
 CR: Project: Automatic update of the version in README.md  
+CR: Build: Harmonization when updating the version  
+CR: Filter: Headers can now be filtered in raw format and decoded  
 
 [Read more](https://raw.githubusercontent.com/seanox/roundup/master/CHANGES)
 
