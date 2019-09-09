@@ -4,7 +4,7 @@
  *  im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
  *  Diese Software unterliegt der Version 2 der GNU General Public License.
  *
- *  Roundup, IMAP Background Filters and Washers
+ *  Roundup, IMAP Background Filter and Washer
  *  Copyright (C) 2019 Seanox Software Solutions
  *
  *  This program is free software; you can redistribute it and/or modify it
