@@ -1,3 +1,16 @@
+<p>
+  <a href="https://github.com/seanox/roundup/pulls">
+    <img src="https://img.shields.io/badge/development-passive-blue?style=for-the-badge">
+  </a>
+  <a href="https://github.com/seanox/roundup/issues">
+    <img src="https://img.shields.io/badge/maintenance-active-green?style=for-the-badge">
+  </a>
+  <a href="http://seanox.de/contact">
+    <img src="https://img.shields.io/badge/support-active-green?style=for-the-badge">
+  </a>
+</p>
+
+
 # Description
 Roundup (in allusion to a broadband herbicide) is an IMAP-based mail filter,
 washer and (re)organizer that works in the background, e.g. as a cron job.
