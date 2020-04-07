@@ -1,5 +1,6 @@
 <p>
-  <a href="https://github.com/seanox/roundup/pulls">
+  <a href="https://github.com/seanox/roundup/pulls"
+      title="Development is waiting for new issues / requests / ideas">
     <img src="https://img.shields.io/badge/development-passive-blue?style=for-the-badge">
   </a>
   <a href="https://github.com/seanox/roundup/issues">
@@ -94,7 +95,7 @@ Please open `roundup.filter` and read the instructions and see the examples.
 
 # Changes (Change Log)
 ## 1.1.0 20190731 (summary of the current version)  
-BF: Session: Correction in resuming a  session  
+BF: Session: Correction in resuming a session  
 BF: Correction in the use of preg_quote  
 CR: Output: KEEP for mails found by NOTHING has been removed  
 CR: Filter: Enhancement of the syntax to continue lines with '...'  
