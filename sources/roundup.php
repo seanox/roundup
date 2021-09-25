@@ -1,39 +1,39 @@
 <?php
 /**
- *  LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
- *  im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
- *  Diese Software unterliegt der Version 2 der GNU General Public License.
+ * LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
+ * im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
+ * Diese Software unterliegt der Version 2 der Apache License.
  *
- *  Roundup, IMAP Background Filter and Washer
- *  Copyright (C) 2019 Seanox Software Solutions
+ * Roundup, IMAP Background Filter and Washer
+ * Copyright (C) 2021 Seanox Software Solutions
  *
- *  This program is free software; you can redistribute it and/or modify it
- *  under the terms of version 2 of the GNU General Public License as published
- *  by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of version 2 of the GNU General Public License as published
+ * by the Free Software Foundation.
  *
- *  This program is distributed in the hope that it will be useful, but WITHOUT
- *  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- *  FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- *  more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ * more details.
  *
- *  You should have received a copy of the GNU General Public License along
- *  with this program; if not, write to the Free Software Foundation, Inc.,
- *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  *
- *      DESCRIPTION
+ *     DESCRIPTION
  *
- *  Roundup is an IMAP-based mail filter, washer and (re)organizer that works in
- *  the background, e.g. as a cron job. This tool uses IMAP to move rule based
- *  mails in a mailbox. The rules for this are a combination of regular and
- *  logical expressions.
+ * Roundup is an IMAP-based mail filter, washer and (re)organizer that works in
+ * the background, e.g. as a cron job. This tool uses IMAP to move rule based
+ * mails in a mailbox. The rules for this are a combination of regular and
+ * logical expressions.
  *
- *  Roundup 1.1.0 20190731
- *  Copyright (C) 2018 Seanox Software Solutions
- *  All rights reserved.
+ * Roundup 2.0.0 20210925
+ * Copyright (C) 2021 Seanox Software Solutions
+ * All rights reserved.
  *
- *  @author  Seanox Software Solutions
- *  @version 1.1.0 20190731
+ * @author  Seanox Software Solutions
+ * @version 2.0.0 20210925
  */
 define("SECTION_ACCOUNT", "ACCOUNT");
 define("SECTION_COMMON", "COMMON");
@@ -58,9 +58,9 @@ define("PROTOCOL_IMAP", "imap");
 define("PROTOCOL_IMAP_SECURE", "imaps");
 
 /**
- *  Returns the complete configuration or the given section.
- *  @param  string $section secton
- *  @return mixed  the found section as array, otherwise FALSE
+ * Returns the complete configuration or the given section.
+ * @param  string $section secton
+ * @return mixed  the found section as array, otherwise FALSE
  */ 
 function configuration_get($section = FALSE) {
     
@@ -85,9 +85,9 @@ function configuration_get($section = FALSE) {
 }
 
 /**
- *  Writes a timestamped message to the standard I/O.
- *  Multiple-line messages are indented during output.
- *  @param string $message message
+ * Writes a timestamped message to the standard I/O.
+ * Multiple-line messages are indented during output.
+ * @param string $message message
  */
 function output_log($message) {
 
@@ -105,8 +105,8 @@ function output_log($message) {
 }
 
 /**
- *  Returns a list of accounts from the configuration file.
- *  @return array accounts as array
+ * Returns a list of accounts from the configuration file.
+ * @return array accounts as array
  */
 function account_list() {
     
@@ -132,9 +132,9 @@ function account_list() {
 }
 
 /**
- *  Decode and simplify a message with possible multi-parts.
- *  @param  string $message
- *  @return the decoded and simplified message
+ * Decode and simplify a message with possible multi-parts.
+ * @param  string $message
+ * @return the decoded and simplified message
  */
 function message_decode_plain($message) {
     
@@ -202,10 +202,10 @@ function message_decode_plain($message) {
 }
 
 /**
- *  Parses a filter section.
- *  Any detected errors are written to the standard I/O.
- *  @param  string $section section
- *  @return mixed  filter as array, otherwise FALSE
+ * Parses a filter section.
+ * Any detected errors are written to the standard I/O.
+ * @param  string $section section
+ * @return mixed  filter as array, otherwise FALSE
  */
 function message_filter_parse($section) {
     
@@ -305,8 +305,8 @@ function message_filter_parse($section) {
 }
 
 /**
- *  Returns a list of filters from the filter file.
- *  @return array filters as array
+ * Returns a list of filters from the filter file.
+ * @return array filters as array
  */
 function message_filter_list() {
     
@@ -331,10 +331,10 @@ function message_filter_list() {
 }
 
 /**
- *  Tests a filter for a message.
- *  @param  array   $filter  filter
- *  @param  string  $message message 
- *  @return boolean TRUE or FALSE
+ * Tests a filter for a message.
+ * @param  array   $filter  filter
+ * @param  string  $message message 
+ * @return boolean TRUE or FALSE
  */
 function message_filter_eval($filter, $message) {
 
@@ -350,10 +350,10 @@ function message_filter_eval($filter, $message) {
 }
 
 /**
- *  Opens the mailbox for an account.
- *  @param  array  $account account	
- *  @param  string $mailbox mailbox
- *  @return mixed  IMAP resource stream, otherwise FALSE
+ * Opens the mailbox for an account.
+ * @param  array  $account account	
+ * @param  string $mailbox mailbox
+ * @return mixed  IMAP resource stream, otherwise FALSE
  */
 function imap_open_url($account, $mailbox) {
         
@@ -386,20 +386,20 @@ function imap_open_url($account, $mailbox) {
 }
 
 /**
- *  Returns a message (incl. header and body).
- *  The message is optimized for the filters (only in memory, nor in real).
- *  Each header is summarized in one line. If a header is an array, a header
- *  line is created for each array entry. The values of the headers are decoded
- *  if appropriate.
- *  Header and body are separated by a blank line [CRLF][CRLF].
- *  Uses the body multi-parts with a boundary. The multi-parts remain intact.
- *  The body/content of the multi-parts for the Content-Type: text/* are decoded
- *  and combined in one line. For other data types, only the alias:
- *    DATA <Content-Type> is used.
- *  If the body does not use a multipart, the content is decoded in one line.
- *  @param  resource $imap IMAP resource stream
- *  @param  int      $uid  uid
- *  @return mixed	 the optimized message as plain text, otherwise FALSE  
+ * Returns a message (incl. header and body).
+ * The message is optimized for the filters (only in memory, nor in real).
+ * Each header is summarized in one line. If a header is an array, a header
+ * line is created for each array entry. The values of the headers are decoded
+ * if appropriate.
+ * Header and body are separated by a blank line [CRLF][CRLF].
+ * Uses the body multi-parts with a boundary. The multi-parts remain intact.
+ * The body/content of the multi-parts for the Content-Type: text/* are decoded
+ * and combined in one line. For other data types, only the alias:
+ *   DATA <Content-Type> is used.
+ * If the body does not use a multipart, the content is decoded in one line.
+ * @param  resource $imap IMAP resource stream
+ * @param  int      $uid  uid
+ * @return mixed	 the optimized message as plain text, otherwise FALSE  
  */
 function imap_fetch_message_plain($imap, $uid) {
     
@@ -449,9 +449,9 @@ function imap_fetch_message_plain($imap, $uid) {
 }
 
 /**
- *  Decodes text according to RFC 2047.
- *  @param  string $text text
- *  @return string the decoded text
+ * Decodes text according to RFC 2047.
+ * @param  string $text text
+ * @return string the decoded text
  */
 function imap_mime_decode($text) {
     
@@ -466,10 +466,10 @@ function imap_mime_decode($text) {
 }
 
 /**
- *  Returns the real/full name/path of a mailbox.
- *  @param  resource $imap    IMAP resource stream
- *  @param  string   $mailbox mailbox
- *  @return mixed    the real/full name/path of a mailbox, otherwise FALSE
+ * Returns the real/full name/path of a mailbox.
+ * @param  resource $imap    IMAP resource stream
+ * @param  string   $mailbox mailbox
+ * @return mixed    the real/full name/path of a mailbox, otherwise FALSE
  */
 function imap_mailbox_real($imap, $mailbox) {
     
@@ -486,9 +486,9 @@ function imap_mailbox_real($imap, $mailbox) {
 }
 
 /**
- *  Returns account of an IMAP resource stream.
- *  @param  resource $imap    IMAP resource stream
- *  @return mixed    account of an IMAP resource stream, otherwise FALSE
+ * Returns account of an IMAP resource stream.
+ * @param  resource $imap    IMAP resource stream
+ * @return mixed    account of an IMAP resource stream, otherwise FALSE
  */
 function imap_mailbox_account($imap) {
     
@@ -502,11 +502,11 @@ function imap_mailbox_account($imap) {
 }
 
 /**
- *  Creates a hash value for a mailbox.
- *  The hash is based on the connection and the mailbox.
- *  @param  resource $imap    IMAP resource stream
- *  @param  string   $mailbox mailbox
- *  @return mixed    the created hash value
+ * Creates a hash value for a mailbox.
+ * The hash is based on the connection and the mailbox.
+ * @param  resource $imap    IMAP resource stream
+ * @param  string   $mailbox mailbox
+ * @return mixed    the created hash value
  */
 function imap_hash_mailbox($imap, $mailbox) {
 
@@ -516,9 +516,9 @@ function imap_hash_mailbox($imap, $mailbox) {
 }
 
 /**
- *  Opens a session if it exists, otherwise a new one will be created.
- *  The session contains the last read UIDs of the individual mailboxes.
- *  @return array the read or newly created session
+ * Opens a session if it exists, otherwise a new one will be created.
+ * The session contains the last read UIDs of the individual mailboxes.
+ * @return array the read or newly created session
  */
 function session_open() {
     
@@ -539,8 +539,8 @@ function session_open() {
 }
 
 /**
- *  Saves the passed session in the file system.
- *  @param unknown $session session
+ * Saves the passed session in the file system.
+ * @param unknown $session session
  */
 function session_save($session) {
     

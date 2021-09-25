@@ -1,3 +1,6 @@
+2.0.0 2021xxxx
+  CR: License: Changed to Apache License Version 2.0
+
 1.1.0 20190731
   BF: Session: Correction in resuming a  session
       If the session contains an empty entry for a mailbox.
