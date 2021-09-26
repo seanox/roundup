@@ -28,38 +28,38 @@
  * mails in a mailbox. The rules for this are a combination of regular and
  * logical expressions.
  *
- * Roundup 2.0.0 20210925
+ * Roundup 2.0.0 20210926
  * Copyright (C) 2021 Seanox Software Solutions
  * All rights reserved.
  *
  * @author  Seanox Software Solutions
- * @version 2.0.0 20210925
+ * @version 2.0.0 20210926
  */
-define("SECTION_ACCOUNT", "ACCOUNT");
-define("SECTION_COMMON", "COMMON");
+const SECTION_ACCOUNT = "ACCOUNT";
+const SECTION_COMMON = "COMMON";
 
-define("SECTION_COMMON_OVERSIZE", "OVERSIZE");
+const SECTION_COMMON_OVERSIZE = "OVERSIZE";
 
-define("URL_SCHEME", "scheme");
-define("URL_HOST", "host");
-define("URL_PORT", "port");
-define("URL_PATH", "path");
-define("URL_USER", "user");
-define("URL_PASS", "pass");
+const URL_SCHEME = "scheme";
+const URL_HOST = "host";
+const URL_PORT = "port";
+const URL_PATH = "path";
+const URL_USER = "user";
+const URL_PASS = "pass";
 
-define("FILTER_NUMBER", "number");
-define("FILTER_ACCOUNT", "account");
-define("FILTER_SOURCE", "source");
-define("FILTER_TARGET", "target");
-define("FILTER_PATTERN", "pattern");
-define("FILTER_EXPRESSION", "expression");
+const FILTER_NUMBER = "number";
+const FILTER_ACCOUNT = "account";
+const FILTER_SOURCE = "source";
+const FILTER_TARGET = "target";
+const FILTER_PATTERN = "pattern";
+const FILTER_EXPRESSION = "expression";
 
-define("PROTOCOL_IMAP", "imap");
-define("PROTOCOL_IMAP_SECURE", "imaps");
+const PROTOCOL_IMAP = "imap";
+const PROTOCOL_IMAP_SECURE = "imaps";
 
 /**
  * Returns the complete configuration or the given section.
- * @param  string $section secton
+ * @param  string $section section
  * @return mixed  the found section as array, otherwise FALSE
  */ 
 function configuration_get($section = FALSE) {
@@ -134,7 +134,7 @@ function account_list() {
 /**
  * Decode and simplify a message with possible multi-parts.
  * @param  string $message
- * @return the decoded and simplified message
+ * @return string the decoded and simplified message
  */
 function message_decode_plain($message) {
     
@@ -399,7 +399,7 @@ function imap_open_url($account, $mailbox) {
  * If the body does not use a multipart, the content is decoded in one line.
  * @param  resource $imap IMAP resource stream
  * @param  int      $uid  uid
- * @return mixed	 the optimized message as plain text, otherwise FALSE  
+ * @return mixed	the optimized message as plain text, otherwise FALSE
  */
 function imap_fetch_message_plain($imap, $uid) {
     
@@ -430,7 +430,7 @@ function imap_fetch_message_plain($imap, $uid) {
 
     $oversize = configuration_get(SECTION_COMMON);
     $oversize = @$oversize[SECTION_COMMON_OVERSIZE];
-    $oversize = preg_match("/(\d+)\s*(K|M)*$/i", $oversize, $match) ? max(intval($oversize), 0) : FALSE;
+    $oversize = preg_match("/(\d+)\s*([KM])*$/i", $oversize, $match) ? max(intval($oversize), 0) : FALSE;
     if (count($match) > 1) {
         if (strcasecmp($match[2], "K") == 0)
             $oversize *= 1024; 
@@ -461,7 +461,7 @@ function imap_mime_decode($text) {
         return $text;
     $result = "";
     foreach ($text as $entry) 
-        $result = trim("$result {$entry->text}");
+        $result = trim("$result $entry->text");
     return preg_replace("/\s+/", " ", $result);
 }
 
@@ -506,7 +506,7 @@ function imap_mailbox_account($imap) {
  * The hash is based on the connection and the mailbox.
  * @param  resource $imap    IMAP resource stream
  * @param  string   $mailbox mailbox
- * @return mixed    the created hash value
+ * @return string   created hash value
  */
 function imap_hash_mailbox($imap, $mailbox) {
 
@@ -540,7 +540,7 @@ function session_open() {
 
 /**
  * Saves the passed session in the file system.
- * @param unknown $session session
+ * @param object $session session
  */
 function session_save($session) {
     
@@ -583,7 +583,7 @@ function main() {
             $imap = imap_open_url($filter[FILTER_ACCOUNT], $filter[FILTER_TARGET]);
             $real = imap_mailbox_real($imap, $filter[FILTER_SOURCE]);
             if (!$real)
-                output_log("Invalid traget mailbox found in: #{$filter[FILTER_NUMBER]} {$filter[FILTER_ACCOUNT]} {$filter[FILTER_SOURCE]} > {$filter[FILTER_TARGET]}");
+                output_log("Invalid target mailbox found in: #{$filter[FILTER_NUMBER]} {$filter[FILTER_ACCOUNT]} {$filter[FILTER_SOURCE]} > {$filter[FILTER_TARGET]}");
             imap_close($imap);
         }
     }
@@ -633,7 +633,7 @@ function main() {
             }
             $from = imap_mime_decode($entry->from);
             $subject = imap_mime_decode($entry->subject);
-            output_log("Catch #{$entry->msgno} at {$entry->date} from $from - $subject");
+            output_log("Catch #$entry->msgno at $entry->date from $from - $subject");
             $uids[] = $uid;    
         }
         
