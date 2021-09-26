@@ -1,8 +1,7 @@
 <p>
-  <a href="https://github.com/seanox/roundup/pulls"
-      title="Development is waiting for new issues / requests / ideas">
-    <img src="https://img.shields.io/badge/development-passive-blue?style=for-the-badge">
-  </a>
+  <a href="https://github.com/seanox/roundup/pulls">
+    <img src="https://img.shields.io/badge/maintenance-active-green?style=for-the-badge">
+  </a>  
   <a href="https://github.com/seanox/roundup/issues">
     <img src="https://img.shields.io/badge/maintenance-active-green?style=for-the-badge">
   </a>
