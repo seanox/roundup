@@ -64,8 +64,8 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 
 # Downloads
-[Seanox Roundup 1.1.0](https://github.com/seanox/roundup/raw/master/releases/seanox-roundup-1.1.0.zip)  
-[Seanox Roundup 1.1.0 Sources](https://github.com/seanox/roundup/raw/master/releases/seanox-roundup-1.1.0-src.zip)  
+[Seanox Roundup 1.1.0](https://github.com/seanox/roundup/releases/download/1.1.0/seanox-roundup-1.1.0.zip)  
+[Seanox Roundup 1.1.0 Sources](https://github.com/seanox/roundup/releases/download/1.1.0/seanox-roundup-1.1.0-src.zip)  
 
 
 # Installation
