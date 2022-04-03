@@ -1,38 +1,40 @@
 # Description
+# ----
 #
 # The filter file is a text file that is read line by line.
+#
 # A hash at the beginning of a line (blank characters are allowed before) marks
 # the line as a comment. Comments are not read and skipped. Means they are
 # processed as if the line does not exist.
 #
-# The filters are divided into sections.
-# A section begins after a blank line or if the line does not begin with a
-# blank character. Therefore, the subsequent lines of a section are indented.
-# If a line is to be continued, the following line starts with indented spaces.
-# The line break and any surrounding spaces are then ignored.
+# The filters are divided into sections. A section begins after a blank line or
+# if the line does not begin with a blank character. Therefore, the subsequent
+# lines of a section are indented. If a line is to be continued, the following
+# line starts with indented spaces. The line break and any surrounding spaces
+# are then ignored.
 #
 # The section of a filter starts with a statement.
 # Syntax: <alias from an account in roundup.ini> <source> <target>
-# The alias is case-insensitive.
-# Target can be 'NOTHING'. The detected message is then entered in an internal
-# whitelist and protected from the following filters.
+# The alias for an account is case insensitive.
+# Target can be 'NOTHING'. The analysis of the so detected message is then
+# aborted and following filters are ignored. The behavior is comparable with an
+# entry in a white list.
 #     IMPORTANT:
 # The application uses a different URL syntax for mailboxes.
 # Therefore not "." but "/" is used!
 # You can use the URL encoding (%## and +).
 #
-# Patterns and expressions follow the statement. Each statement supports
-# multiple patterns starting with an alias. The alias, comparable to
-# parameter, consists of word characters separated from the regular expression
-# by a colon. An alias is case insensitive and the scope is limited to the
-# section. If a alias is defined multiple times for a section, the last
-# definition wins.
+# Variables with expressions follow the statement. Each statement supports
+# multiple variables with a regular expression. A variable consists of word
+# characters separated from the regular expression by a colon. A variable is
+# case insensitive and the scope is limited to the section. If a variable is
+# defined multiple times for a section, the last definition wins.
 #
 # Syntax of a pattern:
-# <alias>: <regular expression>
+# <variable>: <regular expression>
 #
 # The last line in a section is a logical expression. A logical expression
-# supports: AND, OR, NOT, round brackets and the aliases of the patterns. The
+# supports: AND, OR, NOT, round brackets and the variables of the patterns. The
 # result must be explicitly TRUE for the statement to be applied.
 #
 # The message is optimized for the filters (only in memory, nor in real).
