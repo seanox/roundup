@@ -211,15 +211,15 @@ function message_filter_parse($section) {
     if (!$section)
         return FALSE;
     
-    $section = preg_split("/\s*[\r\n]+\s*/", $section);
-    if (!count($section))
+    $lines = preg_split("/\s*[\r\n]+\s*/", $section);
+    if (!count($lines))
         return FALSE;
 
-    $plain = implode("\r\n", $section); 
+    $plain = implode("\r\n", $lines);
         
     $filter = array(FILTER_ACCOUNT => FALSE, FILTER_SOURCE => FALSE, FILTER_TARGET => FALSE, FILTER_PATTERN => array(), FILTER_EXPRESSION => FALSE);
         
-    $statement = array_shift($section);
+    $statement = array_shift($lines);
     if (!preg_match("/(\w+)\s+(\/[^\s]+)\s*>\s*((?:\/[^\s]+)|NOTHING)/i", $statement, $match)) {
         output_log("Invalid filter section (missing valid statement):\r\n$plain");
         return FALSE;
@@ -235,70 +235,70 @@ function message_filter_parse($section) {
         output_log("Invalid filter section (invalid target mailbox found):\r\n$plain");
         return FALSE;
     }
-    
-    foreach ($section as $line) {
-        if (preg_match("/^\s*pat\s*:.*$/i", $line)) {
-            if (!preg_match("/^\s*pat\s*:\s*(\w+)\s+(.*?)\s*$/i", $line, $match)) {
-                output_log("Invalid filter section (invalid " . FILTER_PATTERN . "):\r\n$plain\r\n---\r\n$line");
-                return FALSE;    
-            } elseif (@preg_match($match[2], "") === FALSE) {
-                output_log("Invalid filter section (invalid " . FILTER_PATTERN . " regular expression):\r\n$plain\r\n---\r\n$line");
-                return FALSE;    
-            } else $filter[FILTER_PATTERN][strtoupper($match[1])] = $match[2];
-        } elseif (preg_match("/^\s*exp\s*:.*$/i", $line)) {
-            if (!preg_match("/^\s*exp\s*:\s*([\w\(\)\|\&\!\s]+)\s*$/i", $line, $match)) {
-                output_log("Invalid filter section (invalid " . FILTER_EXPRESSION . "):\r\n$plain\r\n---\r\n$line");
-                return FALSE;    
-            } else $filter[FILTER_EXPRESSION] = strtoupper($match[1]);              
-        }         
+
+    $filter[FILTER_EXPRESSION] = array_pop($lines);
+
+    foreach ($lines as $line) {
+        if (!preg_match("/^\s*(\w+)\s*:\s*(.*?)\s*$/i", $line, $match)
+                || @preg_match($match[2], "") === FALSE) {
+            output_log("Invalid filter section (invalid " . FILTER_PATTERN . "):\r\n$plain\r\n---\r\n$line");
+            return FALSE;
+        }
+        $filter[FILTER_PATTERN][strtoupper($match[1])] = $match[2];
     }
-    if (count($filter[FILTER_PATTERN])
-            && !$filter[FILTER_EXPRESSION]) {
-        output_log("Invalid filter section (missing valid " . FILTER_EXPRESSION . "):\r\n$plain");
-        return FALSE;
-    }
-    if (!count($filter[FILTER_PATTERN])
-            && $filter[FILTER_EXPRESSION]) {
+    if (!count($filter[FILTER_PATTERN])) {
         output_log("Invalid filter section (missing valid " . FILTER_PATTERN . "):\r\n$plain");
         return FALSE;
     }
-    if (count($filter[FILTER_PATTERN])
-            && $filter[FILTER_EXPRESSION]) {
-        $expression = $filter[FILTER_EXPRESSION];
-        $expression = preg_replace("/[\(\)\|\&\!\s]+/", " ", $expression);
-        foreach ($filter[FILTER_PATTERN] as $key => $value)
-            $expression = preg_replace("/\b" . preg_quote($key, "/") . "\b/i", " ", $expression);
-        if (trim($expression)) {
-            output_log("Invalid filter section (missing valid " . FILTER_PATTERN . " in " . FILTER_EXPRESSION . "):\r\n$plain");
-            return FALSE;
-        }
-        $expression = $filter[FILTER_EXPRESSION];
-        $expression = preg_replace("/\b\w+\b/", "X", $expression);
-        if (preg_match("/\w+\s+\w+/", $expression)
-                || preg_match("/\&\s+\&/", $expression)) {
-            output_log("Invalid filter section (missing valid " . FILTER_EXPRESSION . "):\r\n$plain");
-            return FALSE;
-        }
-        $expression = $filter[FILTER_EXPRESSION];
-        $expression = preg_replace("/\s+/", "", $expression);
-        if (preg_match("/\(\)/", $expression)
-                || preg_match("/\)[\(\!\w]/", $expression)
-                || preg_match("/\!\&/", $expression)
-                || preg_match("/\&{3,}/", $expression)
-                || preg_match("/\(\&/", $expression)
-                || preg_match("/[\&\|\!]\)/", $expression)) {
-            output_log("Invalid filter section (missing valid " . FILTER_EXPRESSION . "):\r\n$plain");
-            return FALSE;
-        }
-        $expression = $filter[FILTER_EXPRESSION];
-        $expression = preg_replace("/[^\(\)]/", "", $expression);
-        while (preg_match("/\(\)/", $expression))
-            $expression = preg_replace("/\(\)/", "", $expression);
-        if ($expression) {
-            output_log("Invalid filter section (missing valid " . FILTER_EXPRESSION . "):\r\n$plain");
-            return FALSE;
-        }
+
+    if (!$filter[FILTER_EXPRESSION]
+            || !trim($filter[FILTER_EXPRESSION])) {
+        output_log("Invalid filter section (missing valid " . FILTER_EXPRESSION . "):\r\n$plain");
+        return FALSE;
     }
+    if (!preg_match("/^\s*([\w\(\)\|\&\!\s]+)\s*$/i", $filter[FILTER_EXPRESSION], $match)) {
+        output_log("Invalid filter section (invalid " . FILTER_EXPRESSION . "):\r\n$plain");
+        return FALSE;
+    } else $filter[FILTER_EXPRESSION] = strtoupper(trim($filter[FILTER_EXPRESSION]);
+
+    $expression = $filter[FILTER_EXPRESSION];
+    $expression = preg_replace("/[\(\)\|\&\!\s]+/", " ", $expression);
+    foreach ($filter[FILTER_PATTERN] as $key => $value)
+        $expression = preg_replace("/\b" . preg_quote($key, "/") . "\b/i", " ", $expression);
+    if (trim($expression)) {
+        output_log("Invalid filter section (missing valid variable in " . FILTER_EXPRESSION . "):\r\n$plain");
+        return FALSE;
+    }
+
+    $expression = $filter[FILTER_EXPRESSION];
+    $expression = preg_replace("/\b\w+\b/", "X", $expression);
+    if (preg_match("/\w+\s+\w+/", $expression)
+            || preg_match("/\&\s+\&/", $expression)) {
+        output_log("Invalid filter section (missing valid " . FILTER_EXPRESSION . "):\r\n$plain");
+        return FALSE;
+    }
+
+    $expression = $filter[FILTER_EXPRESSION];
+    $expression = preg_replace("/\s+/", "", $expression);
+    if (preg_match("/\(\)/", $expression)
+            || preg_match("/\)[\(\!\w]/", $expression)
+            || preg_match("/\!\&/", $expression)
+            || preg_match("/\&{3,}/", $expression)
+            || preg_match("/\(\&/", $expression)
+            || preg_match("/[\&\|\!]\)/", $expression)) {
+        output_log("Invalid filter section (missing valid " . FILTER_EXPRESSION . "):\r\n$plain");
+        return FALSE;
+    }
+
+    $expression = $filter[FILTER_EXPRESSION];
+    $expression = preg_replace("/[^\(\)]/", "", $expression);
+    while (preg_match("/\(\)/", $expression))
+        $expression = preg_replace("/\(\)/", "", $expression);
+    if ($expression) {
+        output_log("Invalid filter section (missing valid " . FILTER_EXPRESSION . "):\r\n$plain");
+        return FALSE;
+    }
+
     return $filter;
 }
 
@@ -318,7 +318,7 @@ function message_filter_list() {
     
     $filter = array();
     foreach (preg_split("/((\n\s*){2,})|(\n+(?!\s))/", $content) as $section) {
-        $section = preg_replace("/\s*\n+\s*\.{3}/" , "", $section);
+        $section = preg_replace("/\s*\n+\s+/" , "", $section);
         $section = message_filter_parse($section);
         if (!$section)
             continue;
