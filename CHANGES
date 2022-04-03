@@ -5,14 +5,14 @@
       expression. Patterns are variables with a regular expression.
   CR: License: Changed to Apache License Version 2.0
   CR: Filter: Optimization of syntax
-      - Sections have a fixed structure: statement, variables, expression.
-      - Statement is the first line, expression is the last line.
+      - Sections have a fixed structure: statement, variables, expression
+      - Statement is the first line, expression is the last line
       - The continuation of lines is based on indentation,
-        which ... syntax at the beginning of the line is omitted.
-      - PAT and EXP as line prefix are omitted.
-      - Patterns are now variable declarations.
-      - Variables use word characters as well underscore.
-      - Variables are separated from the value by a colon.
+        which ... syntax at the beginning of the line is omitted
+      - PAT and EXP as line prefix are omitted
+      - Patterns are now variable declarations
+      - Variables use word characters as well underscore
+      - Variables are separated from the expression by a colon
 
 1.1.0 20190731
   BF: Session: Correction in resuming a  session
