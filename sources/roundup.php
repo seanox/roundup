@@ -206,7 +206,7 @@ function message_decode_plain($message) {
  * @return mixed  filter as array, otherwise FALSE
  */
 function message_filter_parse($section) {
-    
+
     $section = trim($section);
     if (!$section)
         return FALSE;
@@ -259,7 +259,7 @@ function message_filter_parse($section) {
     if (!preg_match("/^\s*([\w\(\)\|\&\!\s]+)\s*$/i", $filter[FILTER_EXPRESSION], $match)) {
         output_log("Invalid filter section (invalid " . FILTER_EXPRESSION . "):\r\n$plain");
         return FALSE;
-    } else $filter[FILTER_EXPRESSION] = strtoupper(trim($filter[FILTER_EXPRESSION]);
+    } else $filter[FILTER_EXPRESSION] = strtoupper(trim($filter[FILTER_EXPRESSION]));
 
     $expression = $filter[FILTER_EXPRESSION];
     $expression = preg_replace("/[\(\)\|\&\!\s]+/", " ", $expression);
@@ -317,7 +317,7 @@ function message_filter_list() {
     $content = trim($content);
     
     $filter = array();
-    foreach (preg_split("/((\n\s*){2,})|(\n+(?!\s))/", $content) as $section) {
+    foreach (preg_split("/(\s*\n\s*){2,}/", $content) as $section) {
         $section = preg_replace("/\s*\n+\s+/" , "", $section);
         $section = message_filter_parse($section);
         if (!$section)
@@ -606,7 +606,7 @@ function main() {
         $target = preg_replace("/\/+/", ".", $target);    
             
         $hash = imap_hash_mailbox($imap, $filter[FILTER_SOURCE]);
-        $sequence = $sequences[$hash];
+        $sequence = array_key_exists($hash, $sequences) ? $sequences[$hash] : null;
         $overview = $sequence ? imap_fetch_overview($imap, $sequence, FT_UID) : array();
         output_log(sprintf("Found %d new message(s)", count($overview)));
         foreach ($overview as $entry) {  
