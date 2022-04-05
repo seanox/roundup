@@ -18,7 +18,7 @@
   CR: Build: Releases are now only available on the release page
 
 1.1.0 20190731
-  BF: Session: Correction in resuming a  session
+  BF: Session: Correction in resuming a session
       If the session contains an empty entry for a mailbox.
   BF: Correction in the use of preg_quote
   CR: Output: KEEP for mails found by NOTHING has been removed
