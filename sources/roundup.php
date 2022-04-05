@@ -26,12 +26,12 @@
  * mails in a mailbox. The rules for this are a combination of regular and
  * logical expressions.
  *
- * Roundup 2.0.0 20220403
+ * Roundup 2.0.0 20220405
  * Copyright (C) 2022 Seanox Software Solutions
  * All rights reserved.
  *
  * @author  Seanox Software Solutions
- * @version 2.0.0 20220403
+ * @version 2.0.0 20220405
  */
 const SECTION_ACCOUNT = "ACCOUNT";
 const SECTION_COMMON = "COMMON";
@@ -571,8 +571,8 @@ function main() {
                 $numbers[0] = intval($numbers[0]);
                 $numbers[1] = intval($numbers[1]);
                 if ($numbers[0] > $numbers[1])
-                    $sequence = FALSE;
-            } else $sequence = FALSE;
+                    $sequence = "$numbers[1]:$numbers[1]";
+            } else $sequence = "0:0";
             $sequences[$hash] = $sequence;
         } else output_log("Invalid source mailbox found in: #{$filter[FILTER_NUMBER]} {$filter[FILTER_ACCOUNT]} {$filter[FILTER_SOURCE]} > {$filter[FILTER_TARGET]}");   
         imap_close($imap);
