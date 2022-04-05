@@ -3,6 +3,8 @@
   BR: Wording: Optimizations and corrections
       Filters are sections with a statement, patterns and final logical
       expression. Patterns are variables with a regular expression.
+  BR: Session: Correction in continuation
+  BR: Session: Correction of the repeated analysis of the last mail
   CR: License: Changed to Apache License Version 2.0
   CR: Filter: Optimization of syntax
       - Sections have a fixed structure: statement, variables, expression

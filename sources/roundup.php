@@ -608,6 +608,8 @@ function main() {
         $hash = imap_hash_mailbox($imap, $filter[FILTER_SOURCE]);
         $sequence = array_key_exists($hash, $sequences) ? $sequences[$hash] : null;
         $overview = $sequence ? imap_fetch_overview($imap, $sequence, FT_UID) : array();
+        if ($sequence)
+            array_shift($overview);
         output_log(sprintf("Found %d new message(s)", count($overview)));
         foreach ($overview as $entry) {  
             $uid = @imap_uid($imap, $entry->msgno);
