@@ -563,15 +563,13 @@ function main() {
         $real = imap_mailbox_real($imap, $filter[FILTER_SOURCE]);
         if ($real) {
             $hash = imap_hash_mailbox($imap, $filter[FILTER_SOURCE]);
-            $sequence = array_key_exists($hash, $session) && $session[$hash] ? max($session[$hash] +1, 1) : 1;
+            $sequence = array_key_exists($hash, $session) && $session[$hash] ? $session[$hash] : 0;
             $meta = imap_check($imap);
             if ($meta && imap_check($imap)->Nmsgs) {
-                $sequence = "$sequence:" . imap_uid($imap, imap_check($imap)->Nmsgs);
+                $sequence = $sequence +1 . ":" . max(imap_uid($imap, imap_check($imap)->Nmsgs) +1, $sequence +1);
                 $numbers = preg_split("/:/", $sequence);
                 $numbers[0] = intval($numbers[0]);
                 $numbers[1] = intval($numbers[1]);
-                if ($numbers[0] > $numbers[1])
-                    $sequence = "$numbers[1]:$numbers[1]";
             } else $sequence = "0:0";
             $sequences[$hash] = $sequence;
         } else output_log("Invalid source mailbox found in: #{$filter[FILTER_NUMBER]} {$filter[FILTER_ACCOUNT]} {$filter[FILTER_SOURCE]} > {$filter[FILTER_TARGET]}");   
@@ -608,8 +606,6 @@ function main() {
         $hash = imap_hash_mailbox($imap, $filter[FILTER_SOURCE]);
         $sequence = array_key_exists($hash, $sequences) ? $sequences[$hash] : null;
         $overview = $sequence ? imap_fetch_overview($imap, $sequence, FT_UID) : array();
-        if ($sequence)
-            array_shift($overview);
         output_log(sprintf("Found %d new message(s)", count($overview)));
         foreach ($overview as $entry) {  
             $uid = @imap_uid($imap, $entry->msgno);
