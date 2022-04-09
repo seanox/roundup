@@ -17,6 +17,7 @@
       - Variables are separated from the expression by a colon
   CR: Logging: Enhancement of the outputs
   CR: Build: Releases are now only available on the release page
+  CR: Build: Optimizations
 
 1.1.0 20190731
   BF: Session: Correction in resuming a session
