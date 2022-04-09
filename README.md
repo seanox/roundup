@@ -102,6 +102,7 @@ CR: License: Changed to Apache License Version 2.0
 CR: Filter: Optimization of syntax  
 CR: Logging: Enhancement of the outputs  
 CR: Build: Releases are now only available on the release page  
+CR: Build: Optimizations  
 
 [Read more](https://raw.githubusercontent.com/seanox/roundup/master/CHANGES)
 
