@@ -44,7 +44,7 @@ Seanox Software Solutions oder kurz Seanox genannt.
 
 Diese Software unterliegt der Version 2 der GNU General Public License.
 
-Copyright (C) 2019 Seanox Software Solutions
+Copyright (C) 2022 Seanox Software Solutions
 
 This program is free software; you can redistribute it and/or modify it under
 the terms of version 2 of the GNU General Public License as published by the
@@ -93,17 +93,14 @@ Please open `roundup.filter` and read the instructions and see the examples.
 
 
 # Changes (Change Log)
-## 1.1.0 20190731 (summary of the current version)  
-BF: Session: Correction in resuming a session  
-BF: Correction in the use of preg_quote  
-CR: Output: KEEP for mails found by NOTHING has been removed  
-CR: Filter: Enhancement of the syntax to continue lines with '...'  
-CR: Configuration: Update to use anonymous examples  
-CR: Decoder Multipart: Change alias for non-text content  
-CR: Project: Uniform use of ./LICENSE and ./CHANGES  
-CR: Project: Automatic update of the version in README.md  
-CR: Build: Harmonization when updating the version  
-CR: Filter: Headers can now be filtered in raw format and decoded  
+## 2.0.0 2022xxxx (summary of the upcoming version)  
+BR: Review: Optimizations and corrections  
+BR: Wording: Optimizations and corrections  
+BR: Session: Correction in continuation  
+BR: Session: Correction of the repeated analysis of the last mail  
+CR: License: Changed to Apache License Version 2.0  
+CR: Filter: Optimization of syntax  
+CR: Build: Releases are now only available on the release page  
 
 [Read more](https://raw.githubusercontent.com/seanox/roundup/master/CHANGES)
 
