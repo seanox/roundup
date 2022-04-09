@@ -25,13 +25,13 @@
   CR: Filter: Enhancement of the syntax to continue lines with '...'
   CR: Configuration: Update to use anonymous examples
   CR: Decoder Multipart: Change alias for non-text content
-      from: DATA: <Content-Type> to: DATA <Content-Type>  
-  CR: Project: Uniform use of ./LICENSE and ./CHANGES  
+      from: DATA: <Content-Type> to: DATA <Content-Type>
+  CR: Project: Uniform use of ./LICENSE and ./CHANGES
   CR: Project: Automatic update of the version in README.md
   CR: Build: Harmonization when updating the version
   CR: Filter: Headers can now be filtered in raw format and decoded
       The header for the analysis contains both variants.
-      First the header in raw format, then the decoded header.  
-  
+      First the header in raw format, then the decoded header.
+
 1.0.0 20180127
   NT: Roundup is available as release
