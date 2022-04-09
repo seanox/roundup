@@ -100,6 +100,7 @@ BR: Session: Correction in continuation
 BR: Session: Correction of the repeated analysis of the last mail  
 CR: License: Changed to Apache License Version 2.0  
 CR: Filter: Optimization of syntax  
+CR: Logging: Enhancement of the outputs  
 CR: Build: Releases are now only available on the release page  
 
 [Read more](https://raw.githubusercontent.com/seanox/roundup/master/CHANGES)
