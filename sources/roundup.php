@@ -547,8 +547,12 @@ function session_save($session) {
 }
 
 function main() {
-    
-    output_log("Start");
+
+    output_log("Seanox Roundup [Version 0.0.0 00000000]");
+    output_log("Copyright (C) 0000 Seanox Software Solutions");
+    output_log("IMAP background filter and washer");
+
+    output_log("Analysis started");
 
     $filters = message_filter_list();
     $session = session_open();
@@ -638,7 +642,7 @@ function main() {
         $sequences[$key] = $value[1];
     session_save($sequences);
 
-    output_log("End");
+    output_log("Analysis completed");
 }
 
 error_reporting(E_ERROR | E_WARNING);
