@@ -26,12 +26,12 @@
  * mails in a mailbox. The rules for this are a combination of regular and
  * logical expressions.
  *
- * Roundup 2.0.0 20220405
+ * Roundup 2.0.0 20220409
  * Copyright (C) 2022 Seanox Software Solutions
  * All rights reserved.
  *
  * @author  Seanox Software Solutions
- * @version 2.0.0 20220405
+ * @version 2.0.0 20220409
  */
 const SECTION_ACCOUNT = "ACCOUNT";
 const SECTION_COMMON = "COMMON";
@@ -465,11 +465,10 @@ function imap_mime_decode($text) {
 
 /**
  * Returns the real/full name/path of a mailbox.
- * @param  resource $imap    IMAP resource stream
- * @param  string   $mailbox mailbox
+ * @param  resource $imap IMAP resource stream
  * @return mixed    the real/full name/path of a mailbox, otherwise FALSE
  */
-function imap_mailbox_real($imap, $mailbox) {
+function imap_mailbox_real($imap) {
     
     $meta = imap_check($imap);
     if (!$meta || !$meta->Mailbox)
@@ -502,14 +501,13 @@ function imap_mailbox_account($imap) {
 /**
  * Creates a hash value for a mailbox.
  * The hash is based on the connection and the mailbox.
- * @param  resource $imap    IMAP resource stream
- * @param  string   $mailbox mailbox
+ * @param  resource $imap IMAP resource stream
  * @return string   created hash value
  */
-function imap_hash_mailbox($imap, $mailbox) {
+function imap_hash_mailbox($imap) {
 
     $account = imap_mailbox_account($imap);
-    $real = imap_mailbox_real($imap, $mailbox);
+    $real = imap_mailbox_real($imap);
     return strtoupper(bin2hex(trim("$account $real")));
 }
 
@@ -560,9 +558,9 @@ function main() {
     foreach ($filters as $filter) {
           
         $imap = imap_open_url($filter[FILTER_ACCOUNT], $filter[FILTER_SOURCE]);
-        $real = imap_mailbox_real($imap, $filter[FILTER_SOURCE]);
+        $real = imap_mailbox_real($imap);
         if ($real) {
-            $hash = imap_hash_mailbox($imap, $filter[FILTER_SOURCE]);
+            $hash = imap_hash_mailbox($imap);
             $next = array_key_exists($hash, $session) && $session[$hash] ? $session[$hash] +1 : 1;
             $meta = imap_check($imap);
             if ($meta && imap_check($imap)->Nmsgs) {
@@ -574,7 +572,7 @@ function main() {
 
         if (!preg_match("/NOTHING/i", $filter[FILTER_TARGET])) {
             $imap = imap_open_url($filter[FILTER_ACCOUNT], $filter[FILTER_TARGET]);
-            $real = imap_mailbox_real($imap, $filter[FILTER_SOURCE]);
+            $real = imap_mailbox_real($imap);
             if (!$real)
                 output_log("Invalid target mailbox found in: #{$filter[FILTER_NUMBER]} {$filter[FILTER_ACCOUNT]} {$filter[FILTER_SOURCE]} > {$filter[FILTER_TARGET]}");
             imap_close($imap);
@@ -600,7 +598,7 @@ function main() {
         $target = preg_replace("/\/+$/", "", $target);
         $target = preg_replace("/\/+/", ".", $target);    
             
-        $hash = imap_hash_mailbox($imap, $filter[FILTER_SOURCE]);
+        $hash = imap_hash_mailbox($imap);
         $sequence = array_key_exists($hash, $sequences) ? $sequences[$hash] : null;
         $overview = $sequence && $sequence[0] <= $sequence[1] ? imap_fetch_overview($imap, implode(":", $sequence), FT_UID) : array();
         output_log(sprintf("Found %d new message(s)", count($overview)));
@@ -619,8 +617,6 @@ function main() {
             if (!message_filter_eval($filter, $message))
                 continue;
             if (preg_match("/NOTHING/i", $filter[FILTER_TARGET])) {
-                $from = imap_mime_decode($entry->from);
-                $subject = imap_mime_decode($entry->subject);
                 $whitelist[] = $oid;
                 continue;
             }
