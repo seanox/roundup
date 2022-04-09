@@ -15,6 +15,7 @@
       - Patterns are now variable declarations
       - Variables use word characters as well underscore
       - Variables are separated from the expression by a colon
+  CR: Logging: Enhancement of the outputs
   CR: Build: Releases are now only available on the release page
 
 1.1.0 20190731
