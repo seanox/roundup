@@ -64,7 +64,7 @@ specific language governing permissions and limitations under the License.
 
 
 # Downloads
-[Seanox Roundup 2.0.0](https://github.com/seanox/roundup/releases/download/2.0.0/seanox-rundup-2.0.0.zip)  
+[Seanox Roundup 2.0.0](https://github.com/seanox/roundup/releases/download/2.0.0/seanox-roundup-2.0.0.zip)  
 
 
 # Installation
