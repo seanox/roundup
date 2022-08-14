@@ -110,20 +110,3 @@ CR: Build: Optimizations
 [Issues](https://github.com/seanox/roundup/issues)  
 [Requests](https://github.com/seanox/roundup/pulls)  
 [Mail](http://seanox.de/contact)  
-
-
-# Thanks!
-<img src="https://raw.githubusercontent.com/seanox/seanox/master/sources/resources/images/thanks.png">
-
-[cantaa GmbH](https://cantaa.de/)  
-[JetBrains](https://www.jetbrains.com/?from=seanox)  
-Sven Lorenz  
-Andreas Mitterhofer  
-[novaObjects GmbH](https://www.novaobjects.de)  
-Leo Pelillo  
-Gunter Pfannm&uuml;ller  
-Annette und Steffen Pokel  
-Edgar R&ouml;stle  
-Michael S&auml;mann  
-Markus Schlosneck  
-[T-Systems International GmbH](https://www.t-systems.com)
