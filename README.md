@@ -18,6 +18,12 @@ washer and (re)organizer that works in the background, e.g. as a cron job.
 This tool uses IMAP to move rule based mails in a mailbox. The rules for this
 are a combination of regular and logical expressions.
 
+__Why PHP?__
+
+For those who use a homepage, server-side PHP is often available for crone job
+and so the solution can be used remotely instead of locally -- and the IMAP
+implementation for PHP is good :-)
+
 
 # Features
 - Multiple account support
