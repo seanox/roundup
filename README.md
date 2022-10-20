@@ -97,8 +97,8 @@ The filters are defined here.
 Please open `roundup.filter` and read the instructions and see the examples.
 
 
-# Changes (Change Log)
-## 2.0.0 20220410 (summary of the current version)  
+# Changes 
+## 2.0.0 20220410 
 BR: Review: Optimizations and corrections  
 BR: Wording: Optimizations and corrections  
 BR: Session: Correction in continuation  
