@@ -26,10 +26,6 @@
  * mails in a mailbox. The rules for this are a combination of regular and
  * logical expressions.
  *
- * Roundup 2.0.0 20220409
- * Copyright (C) 2022 Seanox Software Solutions
- * All rights reserved.
- *
  * @author  Seanox Software Solutions
  * @version 2.0.0 20220409
  */
