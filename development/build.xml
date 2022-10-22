@@ -125,6 +125,7 @@
         file="${workspace.release}/seanox-${ant.project.name}-${release.version}.zip"/>
 
     <release-info-reset/>
+    <delete dir="${workspace.build}"/>
 
     <replaceregexp file="${workspace}/README.md"
         match="(Seanox Roundup )\d+(\.\d+)*" flags="g" byline="false"
