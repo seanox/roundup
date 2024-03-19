@@ -83,6 +83,12 @@ A: /(view|broken|missed)\s+(email|message|notification)/i
 B: /\d{3}\.\d{3}\.0{2}[^\d]/i
 A || B
 
+# Find spam with suspicious/obfuscated senders and move them to spam.
+EXAMPLE-A /INBOX > /Spam
+A: /^X-Envelope-From:\s*<\s*>/im
+B: /^Reply-to:\s*<\s*>/im
+A || B
+
 # Find fake messages where the company name does not appear in the e-mail address.
 # Find mails with dubious encoding (e.g. ?UTF-8?B?) in 'From' and if @ followed by numbers. 
 EXAMPLE-A /INBOX > /Spam
