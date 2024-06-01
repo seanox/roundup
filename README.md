@@ -96,6 +96,21 @@ Please open `roundup.ini` and read the notices and see the examples.
 The filters are defined here.  
 Please open `roundup.filter` and read the instructions and see the examples.
 
+## Filter collection against spam
+Collected selection with general rules.
+- A + B: Pupular sender that does not match sender address
+- C: Empty tags in header X-Envelope-From
+- D: Empty tags in the Reply-to () header  
+- E: Images with request parameter 
+```
+A: /^From:.*(google|facebook|ebay|amazon)/im
+B: /^From:.*?(google|facebook|ebay|amazon).*<.*@[^>]*\1\.(\w+)>/im
+C: /X-Envelope-From:\s*<\s*>/i
+D: /Reply-to:\s*<\s*>/i
+E: /<img[^>]+\ssrc=[^>]+\?/i
+(A && !B) || C || D || E
+```
+
 
 # Changes 
 ## 2.0.1 20240401  
